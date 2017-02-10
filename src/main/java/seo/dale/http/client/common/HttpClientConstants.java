@@ -1,7 +1,5 @@
 package seo.dale.http.client.common;
 
-import org.springframework.http.MediaType;
-
 /**
  * Http Client 공통 상수
  */
@@ -41,11 +39,6 @@ public class HttpClientConstants {
 	 * 디폴트 포트
 	 */
 	public static final int DEFAULT_PORT = 80;
-
-	/**
-	 * 디폴트 미디어 타입
-	 */
-	public static final MediaType DEFAULT_MEDIA_TYPE = MediaType.APPLICATION_JSON_UTF8;
 
 	/**
 	 * 요청/응답 커스텀 헤더 상수 - 범용 고유 식별자
