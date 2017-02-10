@@ -19,6 +19,6 @@ public interface HttpClientInvoker {
 	 * @param request 요청 모델
 	 * @return 응답 모델
 	 */
-	<I, O> HttpClientResponse<O> invoke(HttpClientMethod method, HttpClientUrl url, HttpClientRequest<I> request, Class<O> responseType);
+	<I, O> HttpClientResponse<O> invoke(HttpClientMethod method, HttpClientUrl url, HttpClientRequest<I> request, Class<O> responseType, String... vars);
 
 }

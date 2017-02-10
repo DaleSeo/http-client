@@ -41,4 +41,5 @@ public class HttpClientInvokerSpringTest {
 		HttpClientResponse<Post> response = httpClientInvoker.invoke(method, url, request, Post.class);
 		System.out.println(response);
 	}
+
 }

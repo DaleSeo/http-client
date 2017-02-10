@@ -28,7 +28,7 @@ public class HttpClientInvokerSpring implements HttpClientInvoker {
 		// 1) Build the url string
 		String urlStr = new UrlStringBuilder().buildUrl(url);
 		// 2) Convert SacClientRequest to RequestEntity
-		HttpEntity<I> requestEntity = new HttpClientRequestConverter<I>().convert(method, request.getHeader(), request.getBody());
+		HttpEntity<I> requestEntity = new HttpClientRequestConverter<I>().convert(request);
 		// 3) Invoke the SAC REST API using Spring RestTemplate
 		ResponseEntity<O> responseEntity = restTemplate.exchange(urlStr, HttpMethod.valueOf(method.name()), requestEntity, responseType, vars);
 		// 4) Convert ResponseEntity to SacClientResponse

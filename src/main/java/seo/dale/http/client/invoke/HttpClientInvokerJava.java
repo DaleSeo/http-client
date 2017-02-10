@@ -11,7 +11,7 @@ import seo.dale.http.client.model.HttpClientUrl;
 public class HttpClientInvokerJava implements HttpClientInvoker {
 
 	@Override
-	public <I, O> HttpClientResponse<O> invoke(HttpClientMethod method, HttpClientUrl url, HttpClientRequest<I> request, Class<O> responseType) {
+	public <I, O> HttpClientResponse<O> invoke(HttpClientMethod method, HttpClientUrl url, HttpClientRequest<I> request, Class<O> responseType, String... vars) {
 		return null;
 	}
 
