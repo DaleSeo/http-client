@@ -2,6 +2,8 @@ package seo.dale.http.client.model;
 
 import seo.dale.http.client.common.HttpClientConstants;
 
+import java.util.Map;
+
 /**
  * URL 모델
  */
@@ -20,7 +22,7 @@ public class HttpClientUrl extends HttpClientModel {
 	private String host;
 	private int port;
 	private String path;
-	private Object query;
+	private Map<String, ?> pathVars;
 
 	private HttpClientUrl() {
 	}
@@ -41,8 +43,8 @@ public class HttpClientUrl extends HttpClientModel {
 		return path;
 	}
 
-	public Object getQuery() {
-		return query;
+	public Map<String, ?> getPathVars() {
+		return pathVars;
 	}
 
 	public static Builder custom() {
@@ -83,8 +85,8 @@ public class HttpClientUrl extends HttpClientModel {
 			return this;
 		}
 
-		public Builder query(Object query) {
-			built.query = query;
+		public Builder pathVars(Map<String, ?> pathVars) {
+			built.pathVars = pathVars;
 			return this;
 		}
 

@@ -1,5 +1,6 @@
 package seo.dale.http.client.model;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,7 +12,7 @@ public class HttpClientResponse<O> extends HttpClientModel {
 	private Status status;
 
 	/** 응답 헤더 */
-	private Map<String, String> headers;
+	private Map<String, List<String>> headers;
 
 	/** 응답 바디 */
 	private O body;
@@ -24,11 +25,11 @@ public class HttpClientResponse<O> extends HttpClientModel {
 		this.status = status;
 	}
 
-	public Map<String, String> getHeaders() {
+	public Map<String, List<String>> getHeaders() {
 		return headers;
 	}
 
-	public void setHeaders(Map<String, String> headers) {
+	public void setHeaders(Map<String, List<String>> headers) {
 		this.headers = headers;
 	}
 
