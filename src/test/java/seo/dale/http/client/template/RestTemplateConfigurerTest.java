@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
-import seo.dale.http.client.intercept.HeaderSupplementInterceptor;
+import seo.dale.http.client.intercept.HeaderInterceptor;
 import seo.dale.http.client.resolve.BaseUrlResolver;
 import seo.dale.http.client.resolve.HeaderResolver;
 import seo.dale.http.client.url.BaseUrlUriTemplateHandler;
@@ -53,7 +53,7 @@ public class RestTemplateConfigurerTest {
 		};
 		configurer.configure(headerResolver);
 
-		assertThat(restTemplate.getInterceptors().get(0)).isInstanceOf(HeaderSupplementInterceptor.class);
+		assertThat(restTemplate.getInterceptors().get(0)).isInstanceOf(HeaderInterceptor.class);
 	}
 
 }

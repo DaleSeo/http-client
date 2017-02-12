@@ -38,6 +38,21 @@ public class RestTemplateBuilder {
 	public RestTemplate build() {
 		RestTemplate restTemplate = new RestTemplate();
 
+		restTemplate.setRequestFactory(requestFactory);
+		restTemplate.setUriTemplateHandler(uriTemplateHandler);
+		restTemplate.setInterceptors(interceptors);
+		restTemplate.setMessageConverters(messageConverters);
+		restTemplate.setErrorHandler(errorHandler);
+
+		makeRequestFactoryContentKeeping(restTemplate);
+
+		return restTemplate;
+	}
+
+	/**
+	 * 요청/응답 전문 보존을 위해 BufferingClientHttpRequestFactory로 래핑해준다.
+	 */
+	private void makeRequestFactoryContentKeeping(RestTemplate restTemplate) {
 		// Logging Interceptor 사용 시, BufferingClientHttpRequestFactory로 변환
 		if (!CollectionUtils.isEmpty(interceptors)) {
 			restTemplate.setInterceptors(interceptors);
@@ -49,37 +64,13 @@ public class RestTemplateBuilder {
 						}
 					});
 		}
-
-		// 기본 Error Handler 사용 시, Error Handler에 Message Converters 세팅
-		if (errorHandler == DEFAULT_ERROR_HANDLER) {
-			((HttpClientErrorHandler) errorHandler).setMessageConverters(messageConverters);
-		}
-
-		restTemplate.setRequestFactory(requestFactory);
-		restTemplate.setUriTemplateHandler(uriTemplateHandler);
-		restTemplate.setInterceptors(interceptors);
-		restTemplate.setMessageConverters(messageConverters);
-		restTemplate.setErrorHandler(errorHandler);
-
-		return restTemplate;
-	}
-
-	/**
-	 * 요청/응답 전문 보존을 위해 BufferingClientHttpRequestFactory로 래핑해준다.
-	 */
-	private void makeRequestFactoryContentKeeping() {
-		if (!(requestFactory instanceof BufferingClientHttpRequestFactory)) {
-			requestFactory = new BufferingClientHttpRequestFactory(requestFactory);
-		}
 	}
 
 	/**
 	 * 세팅된 errorHandler가 없으면 SacClientErrorHandler를 세팅해준다.
 	 */
 	private void setDefaultErrorHandler() {
-		HttpClientErrorHandler sacClientErrorHandler = new HttpClientErrorHandler();
-		sacClientErrorHandler.setMessageConverters(messageConverters);
-		errorHandler = sacClientErrorHandler;
+		errorHandler = new HttpClientErrorHandler();
 	}
 
 	public RestTemplateBuilder requestFactory(ClientHttpRequestFactory requestFactory) {

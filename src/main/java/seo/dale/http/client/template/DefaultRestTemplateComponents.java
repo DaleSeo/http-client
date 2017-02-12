@@ -37,7 +37,7 @@ public class DefaultRestTemplateComponents {
 	}
 
 	public static List<HttpMessageConverter<?>> messageConverters() {
-		List<HttpMessageConverter<?>> messageConverters = new ArrayList<>(3);
+		List<HttpMessageConverter<?>> messageConverters = new ArrayList<>(2);
 
 		// plain/text
 		StringHttpMessageConverter stringMessageConverter = new StringHttpMessageConverter();

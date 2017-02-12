@@ -3,7 +3,7 @@ package seo.dale.http.client.template;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriTemplateHandler;
-import seo.dale.http.client.intercept.HeaderSupplementInterceptor;
+import seo.dale.http.client.intercept.HeaderInterceptor;
 import seo.dale.http.client.resolve.BaseUrlResolver;
 import seo.dale.http.client.resolve.HeaderResolver;
 import seo.dale.http.client.url.BaseUrlUriTemplateHandler;
@@ -40,7 +40,7 @@ public class RestTemplateConfigurer {
 		}
 
 		List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
-		HeaderSupplementInterceptor headerSupplementInterceptor = new HeaderSupplementInterceptor(headerResolver);
+		HeaderInterceptor headerSupplementInterceptor = new HeaderInterceptor();
 
 		if (interceptors == null) {
 			interceptors = Collections.singletonList(headerSupplementInterceptor); // 단독 인터셉터
@@ -51,6 +51,5 @@ public class RestTemplateConfigurer {
 
 		restTemplate.setInterceptors(interceptors);
 	}
-
 
 }
