@@ -3,8 +3,8 @@ package seo.dale.http.client.invoke;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.web.client.RestTemplate;
-import seo.dale.http.client.intercept.LoggingInterceptor;
-import seo.dale.http.client.log.HttpClientLoggingConfig;
+import seo.dale.http.client.intercept.LogInterceptor;
+import seo.dale.http.client.log.HttpClientLoggerConfig;
 import seo.dale.http.client.model.*;
 import seo.dale.http.client.template.RestTemplateBuilder;
 
@@ -16,11 +16,11 @@ public class HttpClientInvokerSpringTest {
 
 	@Before
 	public void setUp() {
-		HttpClientLoggingConfig config = HttpClientLoggingConfig
+		HttpClientLoggerConfig config = HttpClientLoggerConfig
 				.custom()
 				.build();
 		RestTemplate restTemplate = new RestTemplateBuilder()
-				.interceptors(Collections.singletonList(new LoggingInterceptor(config)))
+				.interceptors(Collections.singletonList(new LogInterceptor(config)))
 				.build();
 		httpClientInvoker = new HttpClientInvokerSpring(restTemplate);
 	}

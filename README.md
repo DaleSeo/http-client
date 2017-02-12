@@ -30,7 +30,7 @@
     - HTTP API 호출 시 사용할 Base URL을 HTTP 연동 클라이언트(HttpClient)에게 알려줌
     - 3개의 구현체(FileBaseUrlResolver, FixedBaseUrlResolver, MemoryBaseUrlResolver)를 제공
     - Base URL을 결정하는 로직이 복잡할 경우, 서브 시스템에서 직접 구현 요망
--  Header 해결사 인터페이스
+- Header 해결사 인터페이스
     - SAC API 호출 시 세팅될 Header 값들을 HTTP 연동 클라이언트(HttpClient)에게 알려줌
     - 2개의 구현체(FileHeaderResolver, FixedHeaderResolver)를 제공
     - Header 값을 구하는 로직이 복잡할 경우, 서브 시스템에서 직접 구현 요망

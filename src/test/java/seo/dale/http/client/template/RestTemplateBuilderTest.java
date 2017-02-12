@@ -9,8 +9,8 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriTemplateHandler;
 import seo.dale.http.client.error.HttpClientErrorHandler;
-import seo.dale.http.client.intercept.LoggingInterceptor;
-import seo.dale.http.client.log.HttpClientLoggingConfig;
+import seo.dale.http.client.intercept.LogInterceptor;
+import seo.dale.http.client.log.HttpClientLoggerConfig;
 
 import java.util.Collections;
 import java.util.List;
@@ -47,8 +47,8 @@ public class RestTemplateBuilderTest {
 
 	@Test
 	public void testContentKeeping() {
-		HttpClientLoggingConfig config = HttpClientLoggingConfig.custom().build();
-		List<ClientHttpRequestInterceptor> interceptors = Collections.singletonList(new LoggingInterceptor(config));
+		HttpClientLoggerConfig config = HttpClientLoggerConfig.custom().build();
+		List<ClientHttpRequestInterceptor> interceptors = Collections.singletonList(new LogInterceptor(config));
 
 		RestTemplate restTemplate = new RestTemplateBuilder()
 				.interceptors(interceptors)

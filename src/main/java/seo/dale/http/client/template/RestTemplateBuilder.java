@@ -9,7 +9,7 @@ import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriTemplateHandler;
 import seo.dale.http.client.error.HttpClientErrorHandler;
-import seo.dale.http.client.intercept.LoggingInterceptor;
+import seo.dale.http.client.intercept.LogInterceptor;
 
 import java.util.List;
 
@@ -38,13 +38,13 @@ public class RestTemplateBuilder {
 	public RestTemplate build() {
 		RestTemplate restTemplate = new RestTemplate();
 
+		makeRequestFactoryContentKeeping(restTemplate);
+
 		restTemplate.setRequestFactory(requestFactory);
 		restTemplate.setUriTemplateHandler(uriTemplateHandler);
 		restTemplate.setInterceptors(interceptors);
 		restTemplate.setMessageConverters(messageConverters);
 		restTemplate.setErrorHandler(errorHandler);
-
-		makeRequestFactoryContentKeeping(restTemplate);
 
 		return restTemplate;
 	}
@@ -57,7 +57,7 @@ public class RestTemplateBuilder {
 		if (!CollectionUtils.isEmpty(interceptors)) {
 			restTemplate.setInterceptors(interceptors);
 			interceptors.stream()
-					.filter(interceptor -> interceptor instanceof LoggingInterceptor)
+					.filter(interceptor -> interceptor instanceof LogInterceptor)
 					.forEach(interceptor -> {
 						if (!(requestFactory instanceof BufferingClientHttpRequestFactory)) {
 							requestFactory = new BufferingClientHttpRequestFactory(requestFactory);
