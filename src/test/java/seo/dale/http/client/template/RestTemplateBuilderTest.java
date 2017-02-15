@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriTemplateHandler;
 import seo.dale.http.client.error.HttpClientErrorHandler;
 import seo.dale.http.client.intercept.LogInterceptor;
-import seo.dale.http.client.log.HttpClientLoggerConfig;
+import seo.dale.http.log.client.HttpClientLoggerConfig;
 
 import java.util.Collections;
 import java.util.List;

@@ -1,4 +1,4 @@
-package seo.dale.http.client.log;
+package seo.dale.http.log.client;
 
 import seo.dale.http.client.log.common.LogConstants;
 

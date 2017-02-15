@@ -1,7 +1,7 @@
 package seo.dale.http.log.server;
 
 import org.slf4j.Logger;
-import seo.dale.http.client.log.common.LogUtils;
+import seo.dale.http.log.common.LogUtils;
 import seo.dale.http.log.server.builder.RequestLogMessageBuilder;
 import seo.dale.http.log.server.builder.ResponseLogMessageBuilder;
 import seo.dale.http.log.server.builder.ServletLogMessageBuilderFactory;

@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 import seo.dale.http.client.intercept.LogInterceptor;
-import seo.dale.http.client.log.HttpClientLoggerConfig;
+import seo.dale.http.log.client.HttpClientLoggerConfig;
 import seo.dale.http.client.model.Post;
 import seo.dale.http.client.resolve.BaseUrlResolver;
 import seo.dale.http.client.resolve.HeaderResolver;

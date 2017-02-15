@@ -4,8 +4,8 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
-import seo.dale.http.client.log.HttpClientLogger;
-import seo.dale.http.client.log.HttpClientLoggerConfig;
+import seo.dale.http.log.client.HttpClientLogger;
+import seo.dale.http.log.client.HttpClientLoggerConfig;
 
 import java.io.IOException;
 

@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.web.client.RestTemplate;
 import seo.dale.http.client.intercept.LogInterceptor;
-import seo.dale.http.client.log.HttpClientLoggerConfig;
+import seo.dale.http.log.client.HttpClientLoggerConfig;
 import seo.dale.http.client.model.*;
 import seo.dale.http.client.template.RestTemplateBuilder;
 

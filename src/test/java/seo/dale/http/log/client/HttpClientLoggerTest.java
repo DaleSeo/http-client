@@ -1,4 +1,4 @@
-package seo.dale.http.client.log;
+package seo.dale.http.log.client;
 
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.LoggingEvent;
@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.mock.http.client.MockClientHttpRequest;
 import org.springframework.mock.http.client.MockClientHttpResponse;
 import seo.dale.http.client.common.HttpClientTestCostants;
+import seo.dale.http.log.client.HttpClientLogger;
+import seo.dale.http.log.client.HttpClientLoggerConfig;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -41,7 +43,6 @@ public class HttpClientLoggerTest {
 		HttpClientLoggerConfig config = HttpClientLoggerConfig.custom()
 				.loggerName(getClass().getName())
 				.logLevel("WARN")
-				//.maxBodyLength(-1)
 				.maxPayloadLength(30)
 				.messagePrefix("ABC")
 				//.skippableOnSuccess(true)
