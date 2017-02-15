@@ -41,7 +41,7 @@ public class HttpClientLoggerTest {
 		HttpClientLoggerConfig config = HttpClientLoggerConfig.custom()
 				.loggerName(getClass().getName())
 				.logLevel("WARN")
-				//.maxPayloadLength(-1)
+				//.maxBodyLength(-1)
 				.maxPayloadLength(30)
 				.messagePrefix("ABC")
 				//.skippableOnSuccess(true)

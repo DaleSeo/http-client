@@ -1,14 +1,16 @@
 package seo.dale.http.log.server;
 
+import org.slf4j.Logger;
+
 /**
  * HTTP 서버 로거 설정
  */
 public class HttpServerLoggerConfig {
 
-	/** 로거 이름 */
-	private String loggerName;
+	/** 로거 */
+	private Logger logger;
 
-	/** 로그 레벨 */
+	/** 로깅 레벨 */
 	private String logLevel;
 
 	/** 요청 정보 로깅 여부 */
@@ -21,23 +23,23 @@ public class HttpServerLoggerConfig {
 	private boolean shouldIncludeHeaders;
 
 	/** 바디 로깅 최대 길이 */
-	private int maxPayloadLength;
+	private int maxBodyLength;
 
 	/** 로깅 스타일 */
 	private HttpServerLogStyle style = HttpServerLogStyle.CURL;
 
 	public HttpServerLoggerConfig(Builder builder) {
-		loggerName = builder.loggerName;
+		logger = builder.logger;
 		logLevel = builder.logLevel;
 		requestLoggingEnabled = builder.requestLoggingEnabled;
 		responseLoggingEnabled = builder.responseLoggingEnabled;
 		shouldIncludeHeaders = builder.shouldIncludeHeaders;
-		maxPayloadLength = builder.maxPayloadLength;
+		maxBodyLength = builder.maxBodyLength;
 		style = builder.style;
 	}
 
-	public String getLoggerName() {
-		return loggerName;
+	public Logger getLogger() {
+		return logger;
 	}
 
 	public String getLogLevel() {
@@ -56,8 +58,8 @@ public class HttpServerLoggerConfig {
 		return shouldIncludeHeaders;
 	}
 
-	public int getMaxPayloadLength() {
-		return maxPayloadLength;
+	public int getMaxBodyLength() {
+		return maxBodyLength;
 	}
 
 	public HttpServerLogStyle getStyle() {
@@ -70,7 +72,7 @@ public class HttpServerLoggerConfig {
 
 	public static class Builder {
 
-		private String loggerName;
+		private Logger logger;
 
 		private String logLevel = "debug";
 
@@ -80,12 +82,12 @@ public class HttpServerLoggerConfig {
 
 		private boolean shouldIncludeHeaders = false;
 
-		private int maxPayloadLength = 50;
+		private int maxBodyLength = 50;
 
 		private HttpServerLogStyle style = HttpServerLogStyle.CURL;
 
-		public Builder loggerName(String loggerName) {
-			this.loggerName = loggerName;
+		public Builder logger(Logger logger) {
+			this.logger = logger;
 			return this;
 		}
 
@@ -109,8 +111,8 @@ public class HttpServerLoggerConfig {
 			return this;
 		}
 
-		public Builder maxPayloadLength(int maxPayloadLength) {
-			this.maxPayloadLength = maxPayloadLength;
+		public Builder maxBodyLength(int maxBodyLength) {
+			this.maxBodyLength = maxBodyLength;
 			return this;
 		}
 

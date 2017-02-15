@@ -34,10 +34,10 @@ public class HttpServerLoggerImplTest {
 	public void setUp() {
 		HttpServerLoggerImpl = new HttpServerLoggerImpl(
 				HttpServerLoggerConfig.custom()
-						.loggerName("com.skplanet.storeplatform.framework")
+						.logger(LoggerFactory.getLogger("seo.dale.http"))
 						.logLevel("info")
 						.shouldIncludeHeaders(true)
-						.maxPayloadLength(100)
+						.maxBodyLength(100)
 						.style(HttpServerLogStyle.CURL)
 						.build()
 		);
@@ -141,7 +141,7 @@ public class HttpServerLoggerImplTest {
 	@After
 	public void tearDown() {
 		LoggingEvent loggingEvent = (LoggingEvent) argumentCaptor.getValue();
-		assertEquals("com.skplanet.storeplatform.framework", loggingEvent.getLoggerName());
+		assertEquals("seo.dale.http", loggingEvent.getLoggerName());
 		assertEquals(Level.INFO, loggingEvent.getLevel());
 	}
 

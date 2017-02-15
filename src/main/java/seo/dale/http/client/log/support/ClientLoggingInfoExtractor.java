@@ -41,7 +41,7 @@ public class ClientLoggingInfoExtractor {
 		requestLoggingInfo.setUri(uri);
 		requestLoggingInfo.setHttpHeaders(httpHeaders);
 
-		// POST 방식이고 maxPayloadLength 설정이 0보다 크면 Request Body 로그를 최대 길이 만큼 출력한다.
+		// POST 방식이고 maxBodyLength 설정이 0보다 크면 Request Body 로그를 최대 길이 만큼 출력한다.
 		if (method == HttpMethod.POST && maxPayloadLength > 0) {
 			String payload = LogUtils.readWithInMaxLength(body, maxPayloadLength, payloadPretty);
 			requestLoggingInfo.setPayload(payload);

@@ -26,6 +26,14 @@ public class LogUtils {
 		}
 	}
 
+	public static void logByLevel(Logger logger, String logLevel, String logMessage) {
+		try {
+			MethodUtils.invokeMethod(logger, StringUtils.lowerCase(logLevel), logMessage);
+		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+			logger.error("Request Logging Failed!");
+		}
+	}
+
 	/**
 	 * 바이트 배열로 부터 최대 길이 만큼만 읽는다.
 	 */
