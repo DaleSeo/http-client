@@ -25,6 +25,7 @@ public class DefaultRequestBodyExtractorTest {
 
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setContent(content.getBytes());
+		request.addHeader("Content-Type", "application/json;charset=UTF-8");
 
 		wrapper = new ContentKeepingRequestWrapper(request);
 	}
