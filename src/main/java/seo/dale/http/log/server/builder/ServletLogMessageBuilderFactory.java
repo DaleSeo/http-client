@@ -1,5 +1,7 @@
 package seo.dale.http.log.server.builder;
 
+import seo.dale.http.log.server.HttpServerLogStyle;
+
 /**
  * 서블릿 로그 메세지 빌더 팩토리
  */
@@ -17,7 +19,7 @@ public class ServletLogMessageBuilderFactory {
 	/**
 	 * 로깅 스타일에 따라 적합한 요청 로그 메세지 빌더를 생성한다.
 	 */
-	public RequestLogMessageBuilder createForRequest(ServerLogStyle loggingStyle) {
+	public RequestLogMessageBuilder createForRequest(HttpServerLogStyle loggingStyle) {
 		switch (loggingStyle) {
 			case SINGLE_LINE:
 				return new RequestLogMessageBuilderSingleLine(shouldIncludeHeaders, maxPayloadLength);
@@ -29,7 +31,7 @@ public class ServletLogMessageBuilderFactory {
 	/**
 	 * 로깅 스타일에 따라 적합한 응답 로그 메세지 빌더를 생성한다.
 	 */
-	public ResponseLogMessageBuilder createForResponse(ServerLogStyle loggingStyle) {
+	public ResponseLogMessageBuilder createForResponse(HttpServerLogStyle loggingStyle) {
 		switch (loggingStyle) {
 			case SINGLE_LINE:
 				return new ResponseLogMessageBuilderSingleLine(shouldIncludeHeaders, maxPayloadLength);

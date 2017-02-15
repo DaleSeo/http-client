@@ -7,6 +7,6 @@ public interface HttpServerLogger {
 
     void logRequest(HttpServletRequest request);
 
-    void logResponse(HttpServletResponse response);
+    void logResponse(HttpServletRequest request, HttpServletResponse response);
 
 }
