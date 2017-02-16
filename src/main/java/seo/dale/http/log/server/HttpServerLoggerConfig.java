@@ -1,6 +1,7 @@
 package seo.dale.http.log.server;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * HTTP 서버 로거 설정
@@ -72,17 +73,17 @@ public class HttpServerLoggerConfig {
 
 	public static class Builder {
 
-		private Logger logger;
+		private Logger logger = LoggerFactory.getLogger(HttpServerLogger.class);
 
 		private String logLevel = "debug";
 
 		private boolean requestLoggingEnabled = true;
 
-		private boolean responseLoggingEnabled = false;
+		private boolean responseLoggingEnabled = true;
 
-		private boolean shouldIncludeHeaders = false;
+		private boolean shouldIncludeHeaders = true;
 
-		private int maxBodyLength = 50;
+		private int maxBodyLength = 100;
 
 		private HttpServerLogStyle style = HttpServerLogStyle.CURL;
 

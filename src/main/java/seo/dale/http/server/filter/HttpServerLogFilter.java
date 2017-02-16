@@ -9,10 +9,12 @@ import seo.dale.http.server.wrapper.ContentKeepingResponseWrapper;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@WebFilter
 public class HttpServerLogFilter extends OncePerRequestFilter {
 
     private HttpServerLogger httpServerLogger;
