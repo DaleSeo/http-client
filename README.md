@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/DaleSeo/http-client.svg?branch=master)](https://travis-ci.org/DaleSeo/http-client)
+
+
 # HTTP Client
 > HTTP API 호출을 용이하다록 도와주는 HTTP Client 모듈
 
