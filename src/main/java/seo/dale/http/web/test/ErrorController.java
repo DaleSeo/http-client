@@ -9,7 +9,7 @@ public class ErrorController {
 
     @RequestMapping("/runtime")
     public void runtime() {
-        throw new RuntimeException();
+        throw new RuntimeException("This is an error~!!");
     }
 
 }
