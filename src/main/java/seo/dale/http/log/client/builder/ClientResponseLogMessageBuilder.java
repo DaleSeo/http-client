@@ -1,10 +1,9 @@
 package seo.dale.http.log.client.builder;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import seo.dale.http.client.log.common.LogConstants;
 import seo.dale.http.log.client.extractor.ClientResponseLogInfoExtractor;
+import seo.dale.http.log.common.LogConstants;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -20,7 +19,7 @@ public class ClientResponseLogMessageBuilder {
     public String build(String messagePrefix) throws IOException {
         HttpStatus httpStatus = extractor.extractStatus();
 
-        StringBuilder builder = new StringBuilder(messagePrefix + "_" + LogConstants.RESPONSE_LOG_PREFIX);
+        StringBuilder builder = new StringBuilder(messagePrefix + "_" + LogConstants.CLIENT_RESPONSE_LOG_PREFIX);
         builder.append("\t").append(httpStatus);
 
         HttpHeaders httpHeaders = extractor.extractHeaders();

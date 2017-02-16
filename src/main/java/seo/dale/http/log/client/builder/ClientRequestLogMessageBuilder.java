@@ -1,8 +1,8 @@
 package seo.dale.http.log.client.builder;
 
 import org.springframework.http.HttpHeaders;
-import seo.dale.http.client.log.common.LogConstants;
 import seo.dale.http.log.client.extractor.ClientRequestLogInfoExtractor;
+import seo.dale.http.log.common.LogConstants;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -16,7 +16,7 @@ public class ClientRequestLogMessageBuilder {
     }
 
     public String build(String messagePrefix) throws IOException {
-        StringBuilder builder = new StringBuilder(messagePrefix + "_" + LogConstants.REQUEST_LOG_PREFIX);
+        StringBuilder builder = new StringBuilder(messagePrefix + "_" + LogConstants.CLIENT_REQUEST_LOG_PREFIX);
         builder.append("\t").append(extractor.extractMethod());
         builder.append("\t").append(extractor.extractUri());
 

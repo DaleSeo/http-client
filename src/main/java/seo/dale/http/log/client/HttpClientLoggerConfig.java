@@ -1,6 +1,6 @@
 package seo.dale.http.log.client;
 
-import seo.dale.http.client.log.common.LogConstants;
+import seo.dale.http.log.common.LogConstants;
 
 /**
  * HttpClient 로거 설정
@@ -64,7 +64,7 @@ public class HttpClientLoggerConfig {
 
 	public static class Builder {
 
-		private String loggerName = LogConstants.DEFAULT_LOGGER_NAME;
+		private String loggerName = "seo.dale.http";
 
 		private String logLevel = "DEBUG";
 
@@ -72,7 +72,7 @@ public class HttpClientLoggerConfig {
 
 		private boolean payloadPretty = true;
 
-		private String messagePrefix = LogConstants.LOG_MESSAGE_PREFIX;
+		private String messagePrefix = "";
 
 		private boolean skippableOnSuccess = true;
 
