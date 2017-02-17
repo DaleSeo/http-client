@@ -2,8 +2,9 @@ package seo.dale.http.log.client;
 
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpResponse;
-import seo.dale.http.log.client.builder.ClientRequestLogMessageBuilder;
-import seo.dale.http.log.client.builder.ClientResponseLogMessageBuilder;
+import seo.dale.http.log.client.builder.HttpClientLogMessageBuilder;
+import seo.dale.http.log.client.builder.HttpClientLogMessageBuilderCurl;
+import seo.dale.http.log.client.builder.HttpClientLogMessageBuilderSingleLine;
 import seo.dale.http.log.client.extractor.ClientRequestLogInfoExtractor;
 import seo.dale.http.log.client.extractor.ClientResponseLogInfoExtractor;
 import seo.dale.http.log.common.LogUtils;
@@ -17,8 +18,15 @@ public class HttpClientLogger {
 
 	private HttpClientLoggerConfig config;
 
+	private HttpClientLogMessageBuilder logMessageBuilder;
+
 	public HttpClientLogger(HttpClientLoggerConfig config) {
 		this.config = config;
+		if (config.getLogStyle() == HttpClientLoggerConfig.LogStyle.SINGLE_LINE) {
+			logMessageBuilder = new HttpClientLogMessageBuilderSingleLine(config.getMessagePrefix());
+		} else {
+			logMessageBuilder = new HttpClientLogMessageBuilderCurl(config.getMessagePrefix());
+		}
 	}
 
 	/**
@@ -29,8 +37,7 @@ public class HttpClientLogger {
 		logInfoExtractor.setMaxBodyLength(config.getMaxPayloadLength());
 		logInfoExtractor.setPrintPretty(config.isPayloadPretty());
 
-		ClientRequestLogMessageBuilder logMessageBuilder = new ClientRequestLogMessageBuilder(logInfoExtractor);
-		String logMessage = logMessageBuilder.build(config.getMessagePrefix());
+		String logMessage = logMessageBuilder.buildForRequest(logInfoExtractor);
 
 		printLogMessage(logMessage);
 	}
@@ -44,8 +51,7 @@ public class HttpClientLogger {
 		logInfoExtractor.setMaxBodyLength(config.getMaxPayloadLength());
 		logInfoExtractor.setPrintPretty(config.isPayloadPretty());
 
-		ClientResponseLogMessageBuilder logMessageBuilder = new ClientResponseLogMessageBuilder(logInfoExtractor);
-		String logMessage = logMessageBuilder.build(config.getMessagePrefix());
+		String logMessage = logMessageBuilder.buildForResponse(logInfoExtractor);
 
 		printLogMessage(logMessage);
 	}

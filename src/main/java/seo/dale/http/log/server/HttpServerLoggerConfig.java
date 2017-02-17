@@ -83,7 +83,7 @@ public class HttpServerLoggerConfig {
 
 		private boolean shouldIncludeHeaders = true;
 
-		private int maxBodyLength = 100;
+		private int maxBodyLength = 1000;
 
 		private HttpServerLogStyle style = HttpServerLogStyle.CURL;
 

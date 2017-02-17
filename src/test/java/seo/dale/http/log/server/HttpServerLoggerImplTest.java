@@ -80,7 +80,7 @@ public class HttpServerLoggerImplTest {
 		System.out.println(logMessage);
 
 		Scanner scanner = new Scanner(new ByteArrayInputStream(logMessage.getBytes()));
-		assertEquals("[[SERVER_REQUEST_LOGGING]]", scanner.nextLine());
+		assertEquals("[[HTTP_SERVER_REQUEST_LOG]]", scanner.nextLine());
 		assertEquals("POST http://localhost/test1/test2?key1=val1&key2=val2 HTTP/1.1", scanner.nextLine());
 		assertEquals("> User-Agent: Mozilla/4.0 (compatible; MSIE5.01; Windows NT)", scanner.nextLine());
 		assertEquals("> Host: www.someclient.com", scanner.nextLine());
@@ -127,7 +127,7 @@ public class HttpServerLoggerImplTest {
 		System.out.println(logMessage);
 
 		Scanner scanner = new Scanner(new ByteArrayInputStream(logMessage.getBytes()));
-		assertEquals("[[SERVER_RESPONSE_LOGGING]]", scanner.nextLine());
+		assertEquals("[[HTTP_SERVER_RESPONSE_LOG]]", scanner.nextLine());
 		assertEquals("HTTP/1.1 200 OK", scanner.nextLine());
 		assertEquals("> Content-Type: application/json;charset=UTF-8", scanner.nextLine());
 		assertEquals("> Content-Length: 62", scanner.nextLine());

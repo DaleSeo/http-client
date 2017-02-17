@@ -7,6 +7,7 @@ import org.springframework.http.client.ClientHttpResponse;
 import seo.dale.http.log.common.LogUtils;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class ClientResponseLogInfoExtractor {
 
@@ -32,20 +33,30 @@ public class ClientResponseLogInfoExtractor {
         this.printPretty = printPretty;
     }
 
-    public HttpStatus extractStatus() throws IOException {
-        return response.getStatusCode();
+    public HttpStatus extractStatus() {
+        try {
+            return response.getStatusCode();
+        } catch (IOException e) {
+            return null;
+        }
     }
 
     public HttpHeaders extractHeaders() {
         return response.getHeaders();
     }
 
-    public String extractBody() throws IOException {
-        boolean successful = response.getStatusCode().is2xxSuccessful();
+    public String extractBody() {
+        boolean successful = Optional.ofNullable(extractStatus())
+                .map(HttpStatus::is2xxSuccessful)
+                .orElse(false);
         if ((skippableOnSuccess && successful) || maxBodyLength == 0) {
             return null;
         }
-        return LogUtils.readWithInMaxLength(response.getBody(), maxBodyLength, printPretty);
+        try {
+            return LogUtils.readWithInMaxLength(response.getBody(), maxBodyLength, printPretty);
+        } catch (IOException e) {
+            return "Error: " + e;
+        }
     }
 
 }

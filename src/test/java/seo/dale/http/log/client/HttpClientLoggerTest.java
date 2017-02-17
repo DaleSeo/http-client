@@ -43,9 +43,8 @@ public class HttpClientLoggerTest {
 		HttpClientLoggerConfig config = HttpClientLoggerConfig.custom()
 				.loggerName(getClass().getName())
 				.logLevel("WARN")
+				.logStyle(HttpClientLoggerConfig.LogStyle.SINGLE_LINE)
 				.maxPayloadLength(30)
-				.messagePrefix("ABC")
-				//.skippableOnSuccess(true)
 				.skippableOnSuccess(false)
 				.build();
 		logger = new HttpClientLogger(config);
@@ -65,7 +64,7 @@ public class HttpClientLoggerTest {
 		System.out.println(logMessage);
 
 		Scanner scanner = new Scanner(new ByteArrayInputStream(logMessage.getBytes()));
-		assertThat(scanner.nextLine()).isEqualTo("ABC_CLIENT_REQUEST_LOGGING\tPOST\thttp://www.test.com/api\tBODY{");
+		assertThat(scanner.nextLine()).isEqualTo("HTTP_CLIENT_REQUEST_LOG\tPOST\thttp://www.test.com/api\tBODY{");
 		assertThat(scanner.nextLine()).isEqualTo("  \"id\": 111,");
 		assertThat(scanner.nextLine()).isEqualTo("  \"title\": \"Req");
 	}
@@ -83,7 +82,7 @@ public class HttpClientLoggerTest {
 		System.out.println(logMessage);
 
 		Scanner scanner = new Scanner(new ByteArrayInputStream(logMessage.getBytes()));
-		assertThat(scanner.nextLine()).isEqualTo("ABC_CLIENT_RESPONSE_LOGGING\t200\tBODY{");
+		assertThat(scanner.nextLine()).isEqualTo("HTTP_CLIENT_RESPONSE_LOG\t200\tBODY{");
 		assertThat(scanner.nextLine()).isEqualTo("  \"id\": 222,");
 		assertThat(scanner.nextLine()).isEqualTo("  \"title\": \"Res");
 	}

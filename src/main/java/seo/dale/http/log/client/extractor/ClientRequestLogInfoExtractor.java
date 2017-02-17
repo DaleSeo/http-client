@@ -41,14 +41,18 @@ public class ClientRequestLogInfoExtractor {
         return request.getHeaders();
     }
 
-    public String extractBody() throws IOException {
+    public String extractBody() {
         HttpMethod method = request.getMethod();
 
         if (method == HttpMethod.GET || maxBodyLength == 0) {
             return null;
         }
 
-        return LogUtils.readWithInMaxLength(body, maxBodyLength, printPretty);
+        try {
+            return LogUtils.readWithInMaxLength(body, maxBodyLength, printPretty);
+        } catch (IOException e) {
+            return "Error: " + e;
+        }
     }
 
 }

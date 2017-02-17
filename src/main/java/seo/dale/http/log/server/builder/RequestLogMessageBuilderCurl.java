@@ -29,7 +29,7 @@ public class RequestLogMessageBuilderCurl implements RequestLogMessageBuilder {
 		StringBuilder builder = new StringBuilder();
 
 		// Prefix
-		builder.append("[[").append(LogConstants.SERVER_REQUEST_LOG_PREFIX).append("]]\n");
+			builder.append("[[").append(LogConstants.SERVER_REQUEST_LOG_PREFIX).append("]]\n");
 
 		String method = requestInfoExtractor.extractMethod();
 		String url = requestInfoExtractor.extractUrl();
@@ -60,9 +60,9 @@ public class RequestLogMessageBuilderCurl implements RequestLogMessageBuilder {
 
 		// 바디 옵션
 		if (maxBodyLength > 0) {
-			String payload = requestInfoExtractor.extractBody(maxBodyLength);
-			if (StringUtils.isNotBlank(payload)) {
-				builder.append("\n").append(payload);
+			String body = requestInfoExtractor.extractBody(maxBodyLength);
+			if (StringUtils.isNotBlank(body)) {
+				builder.append("\n").append(body);
 			}
 		}
 

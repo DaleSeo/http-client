@@ -45,7 +45,7 @@ public class ResponseLogMessageBuilderCurlTest {
 		System.out.println(logMessage);
 
 		Scanner scanner = new Scanner(new ByteArrayInputStream(logMessage.getBytes()));
-		Assert.assertEquals("[[SERVER_RESPONSE_LOGGING]]", scanner.nextLine());
+		Assert.assertEquals("[[HTTP_SERVER_RESPONSE_LOG]]", scanner.nextLine());
 		Assert.assertEquals("HTTP/1.1 200 OK", scanner.nextLine());
 		Assert.assertEquals("> Content-Type: application/json;charset=UTF-8", scanner.nextLine());
 		Assert.assertEquals("> Content-Length: 67", scanner.nextLine());

@@ -1,5 +1,6 @@
 package seo.dale.http.web.test;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -24,6 +25,7 @@ public class TestController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
     public void post(@RequestBody String text) {
         map.put(counter.incrementAndGet(), text);
     }
