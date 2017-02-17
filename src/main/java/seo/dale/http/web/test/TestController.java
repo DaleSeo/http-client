@@ -11,8 +11,15 @@ import java.util.concurrent.atomic.AtomicLong;
 @RequestMapping(value = "/test")
 public class TestController {
 
-    private AtomicLong counter = new AtomicLong();
-    private Map<Long, String> map = new HashMap<>();
+    private static final AtomicLong counter = new AtomicLong();
+    private Map<Long, String> map;
+
+    public TestController() {
+        this.map = new HashMap<>();
+        map.put(counter.incrementAndGet(), "HTML");
+        map.put(counter.incrementAndGet(), "CSS");
+        map.put(counter.incrementAndGet(), "JS");
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody String get() {
