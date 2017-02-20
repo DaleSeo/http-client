@@ -4,8 +4,15 @@ class Main extends React.Component {
   render() {
     return (
       <div>
-        <h1>Hello, world!</h1>
-        <h2>It is {new Date().toLocaleTimeString()}.</h2>
+        <div class="container">
+          <form>
+            <div class="form-group">
+              <label for="path">Path</label>
+              <input type="text" class="form-control" id="path" placeholder="Path"/>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+        </div>
       </div>
     );
   }

@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/DaleSeo/http-client.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DaleSeo/http-client.git"
   },
   "author": "",
   "license": "ISC",
@@ -29,13 +29,15 @@
     "expose-loader": "^0.7.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
+    "font-awesome-webpack": "0.0.4",
     "imports-loader": "^0.6.5",
+    "jquery": "^3.1.1",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack": "^2.2.1"
+    "webpack": "^1.9.11"
   }
 }
