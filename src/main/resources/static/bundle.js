@@ -21535,10 +21535,21 @@
 	    _this.state = {
 	      body: "I'm body"
 	    };
+	
+	    _this.handleSend = _this.handleSend.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(Main, [{
+	    key: 'handleSend',
+	    value: function handleSend() {
+	      var _this2 = this;
+	
+	      $.get('http://localhost:8080/test').done(function (data) {
+	        _this2.setState({ body: data });
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -21565,8 +21576,8 @@
 	              ),
 	              _react2.default.createElement(
 	                'button',
-	                { type: 'submit', className: 'btn btn-default' },
-	                'Submit'
+	                { type: 'submit', className: 'btn btn-default', onClick: this.handleSend },
+	                'Send'
 	              )
 	            )
 	          ),

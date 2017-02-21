@@ -8,7 +8,16 @@ class Main extends React.Component {
 
     this.state = {
       body: "I'm body"
-    }
+    };
+
+    this.handleSend = this.handleSend.bind(this);
+  }
+
+  handleSend() {
+    $.get('http://localhost:8080/test')
+      .done(data => {
+        this.setState({body: data});
+      });
   }
 
   render() {
@@ -21,7 +30,7 @@ class Main extends React.Component {
                 <label for="path">Path</label>
                 <input type="text" class="form-control" id="path" placeholder="Path"/>
               </div>
-              <button type="submit" class="btn btn-default">Submit</button>
+              <button type="submit" class="btn btn-default" onClick={this.handleSend}>Send</button>
             </form>
           </div>
           <div class="row">

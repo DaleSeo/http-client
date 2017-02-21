@@ -1,10 +1,11 @@
 {
-  "name": "HttpClient",
+  "name": "dale-http-client",
   "version": "0.0.1",
-  "description": "Dale's Http Client",
+  "description": "Dale's Http Client Web App",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack -w",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
