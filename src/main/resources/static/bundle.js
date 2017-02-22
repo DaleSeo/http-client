@@ -21533,7 +21533,7 @@
 	    var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
 	
 	    _this.state = {
-	      body: "I'm body"
+	      body: ''
 	    };
 	
 	    _this.handleSend = _this.handleSend.bind(_this);
@@ -21542,7 +21542,7 @@
 	
 	  _createClass(Main, [{
 	    key: 'handleSend',
-	    value: function handleSend() {
+	    value: function handleSend(event) {
 	      var _this2 = this;
 	
 	      $.get('http://localhost:8080/test').done(function (data) {
@@ -21554,38 +21554,53 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'container' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'container' },
+	          { className: 'page-header' },
 	          _react2.default.createElement(
-	            'div',
-	            { className: 'row' },
+	            'h1',
+	            null,
+	            'Http Client ',
 	            _react2.default.createElement(
-	              'form',
+	              'small',
 	              null,
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'form-group' },
-	                _react2.default.createElement(
-	                  'label',
-	                  { htmlFor: 'path' },
-	                  'Path'
-	                ),
-	                _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'path', placeholder: 'Path' })
-	              ),
-	              _react2.default.createElement(
-	                'button',
-	                { type: 'submit', className: 'btn btn-default', onClick: this.handleSend },
-	                'Send'
-	              )
+	              'ver 0.0.1'
 	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(
+	            'h2',
+	            null,
+	            'Request'
 	          ),
 	          _react2.default.createElement(
-	            'div',
-	            { className: 'row' },
-	            _react2.default.createElement(_response2.default, { body: this.state.body })
+	            'form',
+	            null,
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'form-group' },
+	              _react2.default.createElement(
+	                'label',
+	                { htmlFor: 'path' },
+	                'Path'
+	              ),
+	              _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'path', placeholder: 'Path' })
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { type: 'button', className: 'btn btn-default', onClick: this.handleSend },
+	              'Send'
+	            )
 	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(_response2.default, { body: this.state.body })
 	        )
 	      );
 	    }
@@ -21635,8 +21650,17 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "well" },
-	        this.props.body
+	        null,
+	        _react2.default.createElement(
+	          "h2",
+	          null,
+	          "Response"
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: "well" },
+	          this.props.body
+	        )
 	      );
 	    }
 	  }]);
