@@ -21533,7 +21533,7 @@
 	    var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
 	
 	    _this.state = {
-	      body: ''
+	      res: JSON.stringify({})
 	    };
 	
 	    _this.handleSend = _this.handleSend.bind(_this);
@@ -21545,8 +21545,8 @@
 	    value: function handleSend(event) {
 	      var _this2 = this;
 	
-	      $.get('http://localhost:8080/test').done(function (data) {
-	        _this2.setState({ body: data });
+	      $.get('http://localhost:8080/rest/send').done(function (data) {
+	        _this2.setState({ res: JSON.stringify(data) });
 	      });
 	    }
 	  }, {
@@ -21600,7 +21600,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'row' },
-	          _react2.default.createElement(_response2.default, { body: this.state.body })
+	          _react2.default.createElement(_response2.default, { res: this.state.res })
 	        )
 	      );
 	    }
@@ -21648,6 +21648,7 @@
 	  _createClass(Response, [{
 	    key: "render",
 	    value: function render() {
+	      var res = JSON.parse(this.props.res);
 	      return _react2.default.createElement(
 	        "div",
 	        null,
@@ -21659,7 +21660,7 @@
 	        _react2.default.createElement(
 	          "div",
 	          { className: "well" },
-	          this.props.body
+	          res.body
 	        )
 	      );
 	    }

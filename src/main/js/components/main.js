@@ -7,16 +7,16 @@ class Main extends React.Component {
     super(props);
 
     this.state = {
-      body: ''
+      res: JSON.stringify({})
     };
 
     this.handleSend = this.handleSend.bind(this);
   }
 
   handleSend(event) {
-    $.get('http://localhost:8080/test')
+    $.get('http://localhost:8080/rest/send')
       .done(data => {
-        this.setState({body: data});
+        this.setState({res: JSON.stringify(data)});
       });
   }
 
@@ -37,7 +37,7 @@ class Main extends React.Component {
           </form>
         </div>
         <div class="row">
-          <Response body={this.state.body}/>
+          <Response res={this.state.res}/>
         </div>
       </div>
     );
