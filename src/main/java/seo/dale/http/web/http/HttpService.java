@@ -3,6 +3,10 @@ package seo.dale.http.web.http;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import seo.dale.http.client.HttpClient;
+import seo.dale.http.client.model.HttpClientMethod;
+import seo.dale.http.client.model.HttpClientRequest;
+import seo.dale.http.client.model.HttpClientResponse;
+import seo.dale.http.client.model.HttpClientUrl;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,12 +20,19 @@ public class HttpService {
 	private HttpClient httpClient;
 
 	public HttpResponse send(HttpRequest req) {
-		Map<String, List<String>> headers = new HashMap<>();
-		headers.put("Content-Type", Collections.singletonList("application/json; charset=utf-8"));
+		HttpClientMethod method = HttpClientMethod.GET;
+		HttpClientUrl url = HttpClientUrl.custom()
+				.path(req.getUrl().getPath())
+				.build();
+		HttpClientRequest request = new HttpClientRequest(req.getHeaders(), req.getBody());
+
+		HttpClientResponse<String> response = httpClient.exchange(method, url, request, String.class);
+
+		Map<String, List<String>> headers = response.getHeaders();
 
 		HttpResponse res = new HttpResponse();
-		res.setStatus("200 OK");
-		res.setBody("Hi, there!");
+		res.setStatus(response.getStatus().toString());
+		res.setBody(response.getBody());
 		res.setHeaders(headers);
 
 		return res;

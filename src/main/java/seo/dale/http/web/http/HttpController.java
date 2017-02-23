@@ -1,21 +1,18 @@
 package seo.dale.http.web.http;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/rest")
+@RequestMapping("/http")
 public class HttpController {
 
 	@Autowired
 	private HttpService service;
 
-	@RequestMapping(value = "/send", method = RequestMethod.GET)
-	public @ResponseBody HttpResponse send() {
-		return service.send(null);
+	@RequestMapping(value = "/send", method = RequestMethod.POST)
+	public @ResponseBody HttpResponse send(@RequestBody HttpRequest req) {
+		return service.send(req);
 	}
 
 }

@@ -15,6 +15,6 @@ public interface HttpClient {
 
 	<T> T delete(String path, Class<T> responseType, Object... pathVars);
 
-	<O> HttpClientResponse<O> exchange(HttpClientMethod method, HttpClientUrl url, HttpClientRequest request, Class<O> responseType, Object body, Object... vars);
+	<O> HttpClientResponse<O> exchange(HttpClientMethod method, HttpClientUrl url, HttpClientRequest request, Class<O> responseType, Object... vars);
 
 }

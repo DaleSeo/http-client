@@ -56,7 +56,7 @@ public class HttpClientSpring implements HttpClient {
 	}
 
 	@Override
-	public <O> HttpClientResponse<O> exchange(HttpClientMethod method, HttpClientUrl url, HttpClientRequest request, Class<O> responseType, Object body, Object... vars) {
+	public <O> HttpClientResponse<O> exchange(HttpClientMethod method, HttpClientUrl url, HttpClientRequest request, Class<O> responseType, Object... vars) {
 		return invoker.invoke(method, url, request, responseType, vars);
 	}
 
