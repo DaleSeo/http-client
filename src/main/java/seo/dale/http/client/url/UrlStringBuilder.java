@@ -21,11 +21,11 @@ public class UrlStringBuilder {
 		// Url 객체가 host 포함 시, Full Url 만들어서 삽입
 		if (StringUtils.isNotBlank(url.getHost())) {
 			insertBaseUrl(url.getScheme(), url.getHost(), url.getPort());
+			uriComponentsBuilder.path(url.getPath());
+			return uriComponentsBuilder.build().toString();
 		}
 
-		uriComponentsBuilder.path(url.getPath());
-
-		return uriComponentsBuilder.build().toString();
+		return UriComponentsBuilder.fromUriString(url.getPath()).build().toString();
 	}
 
 	private void insertBaseUrl(HttpClientUrl.Scheme scheme, String host, int port) {

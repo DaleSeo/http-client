@@ -24,7 +24,7 @@ public class HttpClientInvokerSpring implements HttpClientInvoker {
 	}
 
 	@Override
-	public <I, O> HttpClientResponse<O> invoke(HttpClientMethod method, HttpClientUrl url, HttpClientRequest<I> request, Class<O> responseType, String... vars) {
+	public <I, O> HttpClientResponse<O> invoke(HttpClientMethod method, HttpClientUrl url, HttpClientRequest<I> request, Class<O> responseType, Object... vars) {
 		// 1) Build the url string
 		String urlStr = new UrlStringBuilder().buildUrl(url);
 		// 2) Convert SacClientRequest to RequestEntity

@@ -16,6 +16,14 @@ public class UrlStringBuilderTest {
 	}
 
 	@Test
+	public void testBuildUrlWithBaseUrl() throws Exception {
+		HttpClientUrl url = new HttpClientUrl.Builder().path("https://jsonplaceholder.typicode.com/posts/{no}").build();
+		String urlString = urlStringBuilder.buildUrl(url);
+//		System.out.println(urlString);
+		assertThat(urlString).isEqualTo("https://jsonplaceholder.typicode.com/posts/{no}");
+	}
+
+	@Test
 	public void testBuildUrlWithoutBaseUrl() throws Exception {
 		HttpClientUrl url = new HttpClientUrl.Builder().path("/posts/{no}").build();
 		String urlString = urlStringBuilder.buildUrl(url);

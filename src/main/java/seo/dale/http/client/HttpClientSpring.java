@@ -45,9 +45,14 @@ public class HttpClientSpring implements HttpClient {
 		return exchange(HttpClientMethod.DELETE, path, responseType, pathVars).getBody();
 	}
 
-	private <O> HttpClientResponse<O> exchange(HttpClientMethod method, String path, Class<O> responseType, Object body, String... vars) {
+	private <O> HttpClientResponse<O> exchange(HttpClientMethod method, String path, Class<O> responseType, Object body, Object... vars) {
 		HttpClientUrl url = new HttpClientUrl.Builder().path(path).build();
 		HttpClientRequest<Object> request = new HttpClientRequest<>(body);
+		return exchange(method, url, request, responseType, vars);
+	}
+
+	@Override
+	public <O> HttpClientResponse<O> exchange(HttpClientMethod method, HttpClientUrl url, HttpClientRequest request, Class<O> responseType, Object body, Object... vars) {
 		return invoker.invoke(method, url, request, responseType, vars);
 	}
 

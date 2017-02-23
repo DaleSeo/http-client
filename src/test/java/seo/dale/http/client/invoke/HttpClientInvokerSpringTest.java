@@ -2,6 +2,7 @@ package seo.dale.http.client.invoke;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 import seo.dale.http.client.intercept.LogInterceptor;
 import seo.dale.http.log.client.HttpClientLoggerConfig;
@@ -35,6 +36,7 @@ public class HttpClientInvokerSpringTest {
 				.build();
 		Map<String, List<String>> headers = new HashMap<>();
 		headers.put("User-Agent", Collections.singletonList("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36"));
+		headers.put("Accept", Collections.singletonList(MediaType.APPLICATION_JSON_UTF8.toString()));
 
 		HttpClientRequest<Void> request = new HttpClientRequest(headers);
 
