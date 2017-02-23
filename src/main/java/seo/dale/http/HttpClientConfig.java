@@ -19,8 +19,8 @@ import java.util.List;
 public class HttpClientConfig {
 
     @Bean
-    public HttpClient sacClient(RestTemplate restTemplate, BaseUrlResolver baseUrlResolver, HeaderResolver headerResolver) {
-        HttpClientSpring sacClient = new HttpClientSpring(restTemplate, baseUrlResolver, headerResolver);
+    public HttpClient sacClient(RestTemplate restTemplate) {
+        HttpClientSpring sacClient = new HttpClientSpring(restTemplate);
         return sacClient;
     }
 
@@ -33,31 +33,6 @@ public class HttpClientConfig {
                 .interceptors(Collections.singletonList(new LogInterceptor(config)))
                 .build();
         return restTemplate;
-    }
-
-    @Bean
-    public BaseUrlResolver baseUrlResolver() {
-        return () -> "https://jsonplaceholder.typicode.com";
-    }
-
-    @Bean
-    public HeaderResolver headerResolver() {
-        return new HeaderResolver() {
-            @Override
-            public String resolveAuthKey() {
-                return "85f1f03";
-            }
-
-            @Override
-            public MediaType resolveContentType() {
-                return MediaType.APPLICATION_JSON_UTF8;
-            }
-
-            @Override
-            public List<MediaType> resolveAccept() {
-                return Collections.singletonList(MediaType.APPLICATION_JSON_UTF8);
-            }
-        };
     }
 
 }

@@ -1,7 +1,6 @@
 package seo.dale.http.web.error;
 
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @see seo.dale.http.ServletConfig#customize(ConfigurableEmbeddedServletContainer)
  */
-@Controller
+// @Controller
 @RequestMapping("/error")
 public class ErrorController {
 
