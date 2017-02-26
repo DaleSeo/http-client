@@ -8,14 +8,17 @@ class Main extends React.Component {
     super(props);
 
     this.state = {
-      res: JSON.stringify({})
+      res: {
+        status: '',
+        body: ''
+      }
     };
   }
 
   handleSend(req) {
     $.post('/http/send', JSON.stringify(req))
       .done(res => {
-        this.setState({res: JSON.stringify(res)});
+        this.setState({res: res});
       });
   }
 
@@ -29,7 +32,7 @@ class Main extends React.Component {
           <Request onSend={this.handleSend.bind(this)} />
         </div>
         <div class="row">
-          <Response res={this.state.res} />
+          <Response status={this.state.res.status} body={this.state.res.body} />
         </div>
       </div>
     );

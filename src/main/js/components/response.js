@@ -2,12 +2,25 @@ import React from 'react';
 
 export default class Response extends React.Component {
   render() {
-    let res = JSON.parse(this.props.res);
+    let className = 'alert ';
+    if (this.props.status.substr(0, 1) === '2') {
+      className += 'alert-success';
+    } else if (this.props.status.substr(0, 1) === '4') {
+      className += 'alert-warning';
+    } else if (this.props.status.substr(0, 1) === '5') {
+      className += 'alert-danger';
+    } else {
+      className += 'alert-info';
+    }
+
     return (
       <div id="response">
         <h2>Response</h2>
+        <div class={className}>
+          {this.props.status}
+        </div>
         <div class="well">
-          {res.body}
+          {this.props.body}
         </div>
       </div>
     );

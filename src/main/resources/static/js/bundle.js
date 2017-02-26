@@ -21537,7 +21537,10 @@
 	    var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
 	
 	    _this.state = {
-	      res: JSON.stringify({})
+	      res: {
+	        status: '',
+	        body: ''
+	      }
 	    };
 	    return _this;
 	  }
@@ -21548,7 +21551,7 @@
 	      var _this2 = this;
 	
 	      $.post('/http/send', JSON.stringify(req)).done(function (res) {
-	        _this2.setState({ res: JSON.stringify(res) });
+	        _this2.setState({ res: res });
 	      });
 	    }
 	  }, {
@@ -21579,7 +21582,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'row' },
-	          _react2.default.createElement(_response2.default, { res: this.state.res })
+	          _react2.default.createElement(_response2.default, { status: this.state.res.status, body: this.state.res.body })
 	        )
 	      );
 	    }
@@ -21719,7 +21722,7 @@
 /* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -21750,21 +21753,36 @@
 	  }
 	
 	  _createClass(Response, [{
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
-	      var res = JSON.parse(this.props.res);
+	      var className = 'alert ';
+	      if (this.props.status.substr(0, 1) === '2') {
+	        className += 'alert-success';
+	      } else if (this.props.status.substr(0, 1) === '4') {
+	        className += 'alert-warning';
+	      } else if (this.props.status.substr(0, 1) === '5') {
+	        className += 'alert-danger';
+	      } else {
+	        className += 'alert-info';
+	      }
+	
 	      return _react2.default.createElement(
-	        "div",
-	        { id: "response" },
+	        'div',
+	        { id: 'response' },
 	        _react2.default.createElement(
-	          "h2",
+	          'h2',
 	          null,
-	          "Response"
+	          'Response'
 	        ),
 	        _react2.default.createElement(
-	          "div",
-	          { className: "well" },
-	          res.body
+	          'div',
+	          { className: className },
+	          this.props.status
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'well' },
+	          this.props.body
 	        )
 	      );
 	    }
