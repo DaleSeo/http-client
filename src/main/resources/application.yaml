@@ -1,6 +1,7 @@
 logging:
   level:
     ROOT: INFO
+    seo.dale.http: DEBUG
 
 error:
   whitelabel:

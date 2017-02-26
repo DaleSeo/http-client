@@ -4,7 +4,9 @@ export default class Response extends React.Component {
 
   handleSend(event) {
     let req = {url: {}};
-    req.url.path = $('#url.path').val() || 'http://jsonplaceholder.typicode.com/posts/1';
+    req.method = $('#method').val() || 'GET';
+    req.url.path = $('#path').val() || 'http://jsonplaceholder.typicode.com/posts/1';
+    req.body = $('#body').val();
     this.props.onSend(req);
   }
 
@@ -14,8 +16,21 @@ export default class Response extends React.Component {
         <h2>Request</h2>
         <form id="formReq">
           <div class="form-group">
+            <label for="method">Method</label>
+            <select id="method" name="method" class="form-control">
+              <option>GET</option>
+              <option>POST</option>
+              <option>PUT</option>
+              <option>DELETE</option>
+            </select>
+          </div>
+          <div class="form-group">
             <label for="path">Path</label>
-            <input type="text" class="form-control" id="url.path" name="url.path" placeholder="Path" />
+            <input id="path" name="path" type="text" class="form-control"/>
+          </div>
+          <div class="form-group">
+            <label for="body">Body</label>
+            <textarea id="body" name="body" class="form-control" rows="3"></textarea>
           </div>
           <button type="button" class="btn btn-default" onClick={this.handleSend.bind(this)}>Send</button>
         </form>

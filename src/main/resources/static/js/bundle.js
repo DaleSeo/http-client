@@ -21628,7 +21628,9 @@
 	    key: 'handleSend',
 	    value: function handleSend(event) {
 	      var req = { url: {} };
-	      req.url.path = $('#url.path').val() || 'http://jsonplaceholder.typicode.com/posts/1';
+	      req.method = $('#method').val() || 'GET';
+	      req.url.path = $('#path').val() || 'http://jsonplaceholder.typicode.com/posts/1';
+	      req.body = $('#body').val();
 	      this.props.onSend(req);
 	    }
 	  }, {
@@ -21650,10 +21652,53 @@
 	            { className: 'form-group' },
 	            _react2.default.createElement(
 	              'label',
+	              { htmlFor: 'method' },
+	              'Method'
+	            ),
+	            _react2.default.createElement(
+	              'select',
+	              { id: 'method', name: 'method', className: 'form-control' },
+	              _react2.default.createElement(
+	                'option',
+	                null,
+	                'GET'
+	              ),
+	              _react2.default.createElement(
+	                'option',
+	                null,
+	                'POST'
+	              ),
+	              _react2.default.createElement(
+	                'option',
+	                null,
+	                'PUT'
+	              ),
+	              _react2.default.createElement(
+	                'option',
+	                null,
+	                'DELETE'
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'form-group' },
+	            _react2.default.createElement(
+	              'label',
 	              { htmlFor: 'path' },
 	              'Path'
 	            ),
-	            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'url.path', name: 'url.path', placeholder: 'Path' })
+	            _react2.default.createElement('input', { id: 'path', name: 'path', type: 'text', className: 'form-control' })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'form-group' },
+	            _react2.default.createElement(
+	              'label',
+	              { htmlFor: 'body' },
+	              'Body'
+	            ),
+	            _react2.default.createElement('textarea', { id: 'body', name: 'body', className: 'form-control', rows: '3' })
 	          ),
 	          _react2.default.createElement(
 	            'button',
