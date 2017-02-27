@@ -5,7 +5,7 @@ class Record extends React.Component {
   render() {
     let className = this.getClassname(this.props.method);
     return (
-      <button type="button" class="list-group-item">
+      <button type="button" class="list-group-item" onClick={this.props.onClick.bind(this)}>
         <span class={className}>{this.props.method}</span> {this.props.url}
       </button>
     );

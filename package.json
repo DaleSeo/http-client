@@ -4,8 +4,8 @@
   "description": "Dale's Http Client Web App",
   "main": "app.js",
   "scripts": {
-    "start": "webpack -w",
-    "build": "webpack"
+    "start": "webpack-dev-server --content-base src/main/resources/static",
+    "build": "webpack -w"
   },
   "repository": {
     "type": "git",
@@ -39,6 +39,7 @@
     "react-dom": "^15.4.2",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack": "^1.9.11"
+    "webpack": "^1.9.11",
+    "webpack-dev-server": "^2.4.1"
   }
 }

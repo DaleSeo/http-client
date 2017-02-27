@@ -21541,6 +21541,11 @@
 	    var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
 	
 	    _this.state = {
+	      req: {
+	        method: 'GET',
+	        path: 'http://jsonplaceholder.typicode.com/posts',
+	        body: '{}'
+	      },
 	      res: {
 	        status: '',
 	        body: ''
@@ -21556,6 +21561,13 @@
 	
 	      $.post('/http/send', JSON.stringify(req)).done(function (res) {
 	        _this2.setState({ res: res });
+	      });
+	    }
+	  }, {
+	    key: 'updateRequest',
+	    value: function updateRequest(req) {
+	      this.setState({
+	        req: req
 	      });
 	    }
 	  }, {
@@ -21584,12 +21596,18 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-md-4' },
-	            _react2.default.createElement(_history2.default, null)
+	            _react2.default.createElement(_history2.default, { updateRequest: this.updateRequest.bind(this) })
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-md-8' },
-	            _react2.default.createElement(_request2.default, { onSend: this.handleSend.bind(this) }),
+	            _react2.default.createElement(_request2.default, {
+	              method: this.state.req.method,
+	              path: this.state.req.path,
+	              body: this.state.req.body,
+	              onSend: this.handleSend.bind(this),
+	              onChange: this.updateRequest.bind(this)
+	            }),
 	            _react2.default.createElement(_response2.default, { status: this.state.res.status, body: this.state.res.body })
 	          )
 	        )
@@ -21633,15 +21651,29 @@
 	var History = function (_React$Component) {
 	  _inherits(History, _React$Component);
 	
-	  function History() {
+	  function History(props) {
 	    _classCallCheck(this, History);
 	
-	    return _possibleConstructorReturn(this, (History.__proto__ || Object.getPrototypeOf(History)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (History.__proto__ || Object.getPrototypeOf(History)).call(this, props));
+	
+	    _this.records = [{ id: 1, method: 'GET', url: 'http://jsonplaceholder.typicode.com/posts/1', body: '' }, { id: 2, method: 'POST', url: 'http://jsonplaceholder.typicode.com/posts', body: '{"userId": 1, "id": 101, "title": "foo", "body": "bar"}' }, { id: 3, method: 'PUT', url: 'http://jsonplaceholder.typicode.com/posts/1', body: '{"userId": 1, "id": 101, "title": "foo", "body": "bar"}' }, { id: 4, method: 'DELETE', url: 'http://jsonplaceholder.typicode.com/posts/1', body: '' }];
+	    return _this;
 	  }
 	
 	  _createClass(History, [{
+	    key: 'updateRequest',
+	    value: function updateRequest(method, path, body) {
+	      this.props.updateRequest({
+	        method: method,
+	        path: path,
+	        body: body
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+	
 	      return _react2.default.createElement(
 	        'div',
 	        { id: 'history' },
@@ -21653,10 +21685,14 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'list-group' },
-	          _react2.default.createElement(_record2.default, { key: '1', method: 'GET', url: 'http://jsonplaceholder.typicode.com/posts/1', body: '' }),
-	          _react2.default.createElement(_record2.default, { key: '2', method: 'POST', url: 'http://jsonplaceholder.typicode.com/posts', body: '{"userId": 1, "id": 101, "title": "foo", "body": "bar"}' }),
-	          _react2.default.createElement(_record2.default, { key: '3', method: 'PUT', url: 'http://jsonplaceholder.typicode.com/posts/1', body: '{"userId": 1, "id": 101, "title": "foo", "body": "bar"}' }),
-	          _react2.default.createElement(_record2.default, { key: '4', method: 'DELETE', url: 'http://jsonplaceholder.typicode.com/posts/1', body: '' })
+	          this.records.map(function (record) {
+	            return _react2.default.createElement(_record2.default, {
+	              key: record.id,
+	              method: record.method,
+	              url: record.url,
+	              onClick: _this2.updateRequest.bind(_this2, record.method, record.url, record.body)
+	            });
+	          })
 	        )
 	      );
 	    }
@@ -21706,7 +21742,7 @@
 	      var className = this.getClassname(this.props.method);
 	      return _react2.default.createElement(
 	        "button",
-	        { type: "button", className: "list-group-item" },
+	        { type: "button", className: "list-group-item", onClick: this.props.onClick.bind(this) },
 	        _react2.default.createElement(
 	          "span",
 	          { className: className },
@@ -21749,7 +21785,7 @@
 /* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -21772,138 +21808,124 @@
 	var Request = function (_React$Component) {
 	  _inherits(Request, _React$Component);
 	
-	  function Request(props) {
+	  function Request() {
 	    _classCallCheck(this, Request);
 	
-	    var _this = _possibleConstructorReturn(this, (Request.__proto__ || Object.getPrototypeOf(Request)).call(this, props));
-	
-	    _this.state = {
-	      path: '',
-	      body: ''
-	    };
-	    return _this;
+	    return _possibleConstructorReturn(this, (Request.__proto__ || Object.getPrototypeOf(Request)).apply(this, arguments));
 	  }
 	
 	  _createClass(Request, [{
-	    key: 'setPath',
+	    key: "setMethod",
+	    value: function setMethod(event) {
+	      this.props.onChange({
+	        method: event.target.value
+	      });
+	    }
+	  }, {
+	    key: "setPath",
 	    value: function setPath(event) {
-	      this.setState({
+	      this.props.onChange({
 	        path: event.target.value
 	      });
 	    }
 	  }, {
-	    key: 'setBody',
+	    key: "setBody",
 	    value: function setBody(event) {
-	      this.setState({
+	      this.props.onChange({
 	        body: event.target.value
 	      });
 	    }
 	  }, {
-	    key: 'checkState',
-	    value: function checkState() {
-	      this.setState({
-	        path: 'http://jsonplaceholder.typicode.com/posts',
-	        body: '{}'
-	      });
-	      console.log('path:', this.state.path);
-	      console.log('body:', this.state.body);
-	    }
-	  }, {
-	    key: 'handleSend',
+	    key: "handleSend",
 	    value: function handleSend(event) {
 	      var req = { url: {} };
-	      req.method = $('#method').val() || 'GET';
-	      req.url.path = $('#path').val() || 'http://jsonplaceholder.typicode.com/posts/1';
-	      req.body = $('#body').val();
+	      req.method = this.state.method;
+	      req.url.path = this.state.path;
+	      req.body = this.state.body;
 	      this.props.onSend(req);
 	    }
 	  }, {
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'div',
-	        { id: 'request' },
+	        "div",
+	        { id: "request" },
 	        _react2.default.createElement(
-	          'h2',
+	          "h2",
 	          null,
-	          'Request'
+	          "Request"
 	        ),
 	        _react2.default.createElement(
-	          'form',
-	          { id: 'formReq' },
+	          "form",
+	          { id: "formReq" },
 	          _react2.default.createElement(
-	            'div',
-	            { className: 'form-group' },
+	            "div",
+	            { className: "form-group" },
 	            _react2.default.createElement(
-	              'label',
-	              { htmlFor: 'method' },
-	              'Method'
+	              "label",
+	              { htmlFor: "method" },
+	              "Method"
 	            ),
 	            _react2.default.createElement(
-	              'select',
-	              { id: 'method', name: 'method', className: 'form-control' },
+	              "select",
+	              { id: "method", name: "method", className: "form-control", value: this.props.method, onChange: this.setMethod.bind(this) },
 	              _react2.default.createElement(
-	                'option',
+	                "option",
 	                null,
-	                'GET'
+	                "GET"
 	              ),
 	              _react2.default.createElement(
-	                'option',
+	                "option",
 	                null,
-	                'POST'
+	                "POST"
 	              ),
 	              _react2.default.createElement(
-	                'option',
+	                "option",
 	                null,
-	                'PUT'
+	                "PUT"
 	              ),
 	              _react2.default.createElement(
-	                'option',
+	                "option",
 	                null,
-	                'DELETE'
+	                "DELETE"
 	              )
 	            )
 	          ),
 	          _react2.default.createElement(
-	            'div',
-	            { className: 'form-group' },
+	            "div",
+	            { className: "form-group" },
 	            _react2.default.createElement(
-	              'label',
-	              { htmlFor: 'path' },
-	              'Path'
+	              "label",
+	              { htmlFor: "path" },
+	              "Path"
 	            ),
-	            _react2.default.createElement('input', { id: 'path', name: 'path', type: 'text', className: 'form-control', value: this.state.path, onChange: this.setPath.bind(this) })
+	            _react2.default.createElement("input", { id: "path", name: "path", type: "text", className: "form-control", value: this.props.path, onChange: this.setPath.bind(this) })
 	          ),
 	          _react2.default.createElement(
-	            'div',
-	            { className: 'form-group' },
+	            "div",
+	            { className: "form-group" },
 	            _react2.default.createElement(
-	              'label',
-	              { htmlFor: 'body' },
-	              'Body'
+	              "label",
+	              { htmlFor: "body" },
+	              "Body"
 	            ),
-	            _react2.default.createElement('textarea', { id: 'body', name: 'body', className: 'form-control', rows: '3', value: this.state.body, onChange: this.setBody.bind(this) })
+	            _react2.default.createElement("textarea", { id: "body", name: "body", className: "form-control", rows: "3", value: this.props.body, onChange: this.setBody.bind(this) })
 	          ),
 	          _react2.default.createElement(
-	            'div',
-	            { className: 'text-right' },
+	            "div",
+	            { className: "text-right" },
 	            _react2.default.createElement(
-	              'div',
-	              { className: 'btn-group' },
+	              "div",
+	              { className: "btn-group" },
 	              _react2.default.createElement(
-	                'button',
-	                { type: 'button', className: 'btn btn-primary', onClick: this.handleSend.bind(this) },
-	                'Send'
+	                "button",
+	                { type: "button", className: "btn btn-primary", onClick: this.handleSend.bind(this) },
+	                "Send"
 	              ),
 	              _react2.default.createElement(
-	                'button',
-	                { type: 'reset', className: 'btn btn-default' },
-	                'Reset'
-	              ),
-	              _react2.default.createElement(
-	                'button',
-	                { type: 'button', className: 'btn btn-warning', onClick: this.checkState.bind(this) },
-	                'Check'
+	                "button",
+	                { type: "reset", className: "btn btn-default" },
+	                "Reset"
 	              )
 	            )
 	          )
@@ -21926,7 +21948,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = undefined;
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	

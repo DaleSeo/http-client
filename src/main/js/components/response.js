@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class Response extends React.Component {
+class Response extends React.Component {
   render() {
     let className = 'alert ';
     if (this.props.status.substr(0, 1) === '2') {
@@ -26,3 +26,5 @@ export default class Response extends React.Component {
     );
   };
 }
+
+export default Response;
