@@ -32,7 +32,12 @@ export default class Response extends React.Component {
             <label for="body">Body</label>
             <textarea id="body" name="body" class="form-control" rows="3"></textarea>
           </div>
-          <button type="button" class="btn btn-default" onClick={this.handleSend.bind(this)}>Send</button>
+          <div class="text-right">
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary" onClick={this.handleSend.bind(this)}>Send</button>
+              <button type="reset" class="btn btn-default">Reset</button>
+            </div>
+          </div>
         </form>
       </div>
     );
