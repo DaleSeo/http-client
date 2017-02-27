@@ -21754,7 +21754,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = undefined;
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
@@ -21770,16 +21769,46 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Response = function (_React$Component) {
-	  _inherits(Response, _React$Component);
+	var Request = function (_React$Component) {
+	  _inherits(Request, _React$Component);
 	
-	  function Response() {
-	    _classCallCheck(this, Response);
+	  function Request(props) {
+	    _classCallCheck(this, Request);
 	
-	    return _possibleConstructorReturn(this, (Response.__proto__ || Object.getPrototypeOf(Response)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (Request.__proto__ || Object.getPrototypeOf(Request)).call(this, props));
+	
+	    _this.state = {
+	      path: '',
+	      body: ''
+	    };
+	    return _this;
 	  }
 	
-	  _createClass(Response, [{
+	  _createClass(Request, [{
+	    key: 'setPath',
+	    value: function setPath(event) {
+	      this.setState({
+	        path: event.target.value
+	      });
+	    }
+	  }, {
+	    key: 'setBody',
+	    value: function setBody(event) {
+	      this.setState({
+	        body: event.target.value
+	      });
+	    }
+	  }, {
+	    key: 'checkState',
+	    value: function checkState() {
+	      this.setState({
+	        path: 'http://jsonplaceholder.typicode.com/posts',
+	        body: '{}'
+	      });
+	      console.log('path:', this.state.path);
+	      console.log('body:', this.state.body);
+	    }
+	  }, {
 	    key: 'handleSend',
 	    value: function handleSend(event) {
 	      var req = { url: {} };
@@ -21843,7 +21872,7 @@
 	              { htmlFor: 'path' },
 	              'Path'
 	            ),
-	            _react2.default.createElement('input', { id: 'path', name: 'path', type: 'text', className: 'form-control' })
+	            _react2.default.createElement('input', { id: 'path', name: 'path', type: 'text', className: 'form-control', value: this.state.path, onChange: this.setPath.bind(this) })
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -21853,7 +21882,7 @@
 	              { htmlFor: 'body' },
 	              'Body'
 	            ),
-	            _react2.default.createElement('textarea', { id: 'body', name: 'body', className: 'form-control', rows: '3' })
+	            _react2.default.createElement('textarea', { id: 'body', name: 'body', className: 'form-control', rows: '3', value: this.state.body, onChange: this.setBody.bind(this) })
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -21870,6 +21899,11 @@
 	                'button',
 	                { type: 'reset', className: 'btn btn-default' },
 	                'Reset'
+	              ),
+	              _react2.default.createElement(
+	                'button',
+	                { type: 'button', className: 'btn btn-warning', onClick: this.checkState.bind(this) },
+	                'Check'
 	              )
 	            )
 	          )
@@ -21878,10 +21912,10 @@
 	    }
 	  }]);
 	
-	  return Response;
+	  return Request;
 	}(_react2.default.Component);
 	
-	exports.default = Response;
+	exports.default = Request;
 
 /***/ },
 /* 182 */
