@@ -17,7 +17,7 @@ public class HttpRequest {
 	}
 
 	@Data
-	class Url {
+	static class Url {
 		private Scheme scheme;
 		private String host;
 		private String path;
