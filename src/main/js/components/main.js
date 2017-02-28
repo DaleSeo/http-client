@@ -21,7 +21,11 @@ class Main extends React.Component {
     };
   }
 
-  handleSend(req) {
+  handleSend() {
+    let req = {url: {}};
+    req.method = this.state.req.method;
+    req.url.path = this.state.req.path;
+    req.body = this.state.req.body;
     $.post('/http/send', JSON.stringify(req))
       .done(res => {
         this.setState({res: res});

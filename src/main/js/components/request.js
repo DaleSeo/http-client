@@ -16,16 +16,12 @@ class Request extends React.Component {
 
   setBody(event) {
     this.props.onChange({
-      body: event.target.value
+      method: event.target.value
     });
   }
 
   handleSend(event) {
-    let req = {url: {}};
-    req.method = this.state.method;
-    req.url.path = this.state.path;
-    req.body = this.state.body;
-    this.props.onSend(req);
+    this.props.onSend();
   }
 
   render() {

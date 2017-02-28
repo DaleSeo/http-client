@@ -21556,9 +21556,13 @@
 	
 	  _createClass(Main, [{
 	    key: 'handleSend',
-	    value: function handleSend(req) {
+	    value: function handleSend() {
 	      var _this2 = this;
 	
+	      var req = { url: {} };
+	      req.method = this.state.req.method;
+	      req.url.path = this.state.req.path;
+	      req.body = this.state.req.body;
 	      $.post('/http/send', JSON.stringify(req)).done(function (res) {
 	        _this2.setState({ res: res });
 	      });
@@ -21832,17 +21836,13 @@
 	    key: "setBody",
 	    value: function setBody(event) {
 	      this.props.onChange({
-	        body: event.target.value
+	        method: event.target.value
 	      });
 	    }
 	  }, {
 	    key: "handleSend",
 	    value: function handleSend(event) {
-	      var req = { url: {} };
-	      req.method = this.state.method;
-	      req.url.path = this.state.path;
-	      req.body = this.state.body;
-	      this.props.onSend(req);
+	      this.props.onSend();
 	    }
 	  }, {
 	    key: "render",
