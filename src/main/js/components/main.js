@@ -17,18 +17,31 @@ class Main extends React.Component {
       res: {
         status: '',
         body: ''
-      }
+      },
+      records: []
     };
   }
 
+  componentDidMount() {
+    this.updateRecords();
+  }
+
   handleSend() {
+    console.log('handleSend()');
     let req = {url: {}};
     req.method = this.state.req.method;
     req.url.path = this.state.req.path;
     req.body = this.state.req.body;
+
     $.post('/http/send', JSON.stringify(req))
       .done(res => {
         this.setState({res: res});
+
+        let record = {req: req};
+        $.post('/http/records', JSON.stringify(record))
+          .done(res => {
+            updateRecords();
+          });
       });
   }
 
@@ -36,6 +49,24 @@ class Main extends React.Component {
     this.setState({
       req: req
     });
+  }
+
+  updateRecords() {
+    console.log('updateRecords()');
+    $.get('/http/records')
+      .done(records => {
+        console.log(records.length);
+        this.setState({
+          records: records.map(record => {
+            return {
+              id: record.id,
+              method: record.request.method,
+              url: record.request.url.scheme + '://' + record.request.url.host + record.request.url.path,
+              body: record.request.body
+            };
+          })
+        });
+      });
   }
 
   render() {
@@ -46,7 +77,7 @@ class Main extends React.Component {
         </div>
         <div class="row">
           <div class="col-md-4">
-            <History updateRequest={this.updateRequest.bind(this)} />
+            <History records={this.state.records} updateRequest={this.updateRequest.bind(this)} />
           </div>
           <div class="col-md-8">
             <Request

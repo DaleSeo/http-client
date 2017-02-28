@@ -4,11 +4,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class MockHttpHistoryService implements HttpHistoryService {
 
     private List<HttpRecord> records;
+    private static AtomicLong counter = new AtomicLong();
 
     private void addRecord(HttpRequest.Method method, String host, String path, String body) {
         HttpRequest.Url url0 = new HttpRequest.Url();
@@ -22,6 +24,7 @@ public class MockHttpHistoryService implements HttpHistoryService {
         request0.setBody(body);
 
         HttpRecord record0 = new HttpRecord();
+        record0.setId(counter.incrementAndGet());
         record0.setRequest(request0);
 
         records.add(record0);

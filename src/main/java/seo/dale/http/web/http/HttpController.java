@@ -21,12 +21,12 @@ public class HttpController {
 		return service.send(req);
 	}
 
-	@RequestMapping(value = "/history", method = RequestMethod.GET)
+	@RequestMapping(value = "/records", method = RequestMethod.GET)
 	public @ResponseBody List<HttpRecord> findAll() {
 		return historyService.findAll();
 	}
 
-	@RequestMapping(value = "/history", method = RequestMethod.POST)
+	@RequestMapping(value = "/records", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public void add(@RequestBody HttpRecord record) {
 		historyService.add(record);

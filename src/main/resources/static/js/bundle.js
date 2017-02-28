@@ -21549,22 +21549,35 @@
 	      res: {
 	        status: '',
 	        body: ''
-	      }
+	      },
+	      records: []
 	    };
 	    return _this;
 	  }
 	
 	  _createClass(Main, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.updateRecords();
+	    }
+	  }, {
 	    key: 'handleSend',
 	    value: function handleSend() {
 	      var _this2 = this;
 	
+	      console.log('handleSend()');
 	      var req = { url: {} };
 	      req.method = this.state.req.method;
 	      req.url.path = this.state.req.path;
 	      req.body = this.state.req.body;
+	
 	      $.post('/http/send', JSON.stringify(req)).done(function (res) {
 	        _this2.setState({ res: res });
+	
+	        var record = { req: req };
+	        $.post('/http/records', JSON.stringify(record)).done(function (res) {
+	          updateRecords();
+	        });
 	      });
 	    }
 	  }, {
@@ -21572,6 +21585,26 @@
 	    value: function updateRequest(req) {
 	      this.setState({
 	        req: req
+	      });
+	    }
+	  }, {
+	    key: 'updateRecords',
+	    value: function updateRecords() {
+	      var _this3 = this;
+	
+	      console.log('updateRecords()');
+	      $.get('/http/records').done(function (records) {
+	        console.log(records.length);
+	        _this3.setState({
+	          records: records.map(function (record) {
+	            return {
+	              id: record.id,
+	              method: record.request.method,
+	              url: record.request.url.scheme + '://' + record.request.url.host + record.request.url.path,
+	              body: record.request.body
+	            };
+	          })
+	        });
 	      });
 	    }
 	  }, {
@@ -21600,7 +21633,7 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-md-4' },
-	            _react2.default.createElement(_history2.default, { updateRequest: this.updateRequest.bind(this) })
+	            _react2.default.createElement(_history2.default, { records: this.state.records, updateRequest: this.updateRequest.bind(this) })
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -21655,13 +21688,10 @@
 	var History = function (_React$Component) {
 	  _inherits(History, _React$Component);
 	
-	  function History(props) {
+	  function History() {
 	    _classCallCheck(this, History);
 	
-	    var _this = _possibleConstructorReturn(this, (History.__proto__ || Object.getPrototypeOf(History)).call(this, props));
-	
-	    _this.records = [{ id: 1, method: 'GET', url: 'http://jsonplaceholder.typicode.com/posts/1', body: '' }, { id: 2, method: 'POST', url: 'http://jsonplaceholder.typicode.com/posts', body: '{"userId": 1, "id": 101, "title": "foo", "body": "bar"}' }, { id: 3, method: 'PUT', url: 'http://jsonplaceholder.typicode.com/posts/1', body: '{"userId": 1, "id": 101, "title": "foo", "body": "bar"}' }, { id: 4, method: 'DELETE', url: 'http://jsonplaceholder.typicode.com/posts/1', body: '' }];
-	    return _this;
+	    return _possibleConstructorReturn(this, (History.__proto__ || Object.getPrototypeOf(History)).apply(this, arguments));
 	  }
 	
 	  _createClass(History, [{
@@ -21689,7 +21719,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'list-group' },
-	          this.records.map(function (record) {
+	          this.props.records.map(function (record) {
 	            return _react2.default.createElement(_record2.default, {
 	              key: record.id,
 	              method: record.method,

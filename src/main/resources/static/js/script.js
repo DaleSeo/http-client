@@ -14,6 +14,11 @@ $.fn.serializeObject = function() {
   return o;
 };
 
+const BASE_URL = 'http://localhost:8080';
+
 $.ajaxSetup({
-  contentType: "application/json; charset=UTF-8"
+  contentType: "application/json; charset=UTF-8",
+  beforeSend: function(xhr, options) {
+    options.url = BASE_URL + options.url;
+  }
 });
