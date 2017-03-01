@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/http")
 public class HttpController {
@@ -19,6 +20,11 @@ public class HttpController {
 	@RequestMapping(value = "/send", method = RequestMethod.POST)
 	public @ResponseBody HttpResponse send(@RequestBody HttpRequest req) {
 		return service.send(req);
+	}
+
+    // @RequestMapping(value = "/records", method = RequestMethod.OPTIONS)
+    public @ResponseBody List<HttpRecord> options() {
+        return historyService.findAll();
 	}
 
 	@RequestMapping(value = "/records", method = RequestMethod.GET)

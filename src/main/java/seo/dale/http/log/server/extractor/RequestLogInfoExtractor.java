@@ -62,7 +62,7 @@ public class RequestLogInfoExtractor {
 	public String extractBody(int maxPayloadLength) {
 		String method = request.getMethod();
 
-		if ("GET".equals(method)) {
+		if ("GET".equals(method) || "OPTIONS".equals(method)) {
 			return "";
 		}
 
