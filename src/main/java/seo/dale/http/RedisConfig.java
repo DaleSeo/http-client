@@ -1,5 +1,7 @@
 package seo.dale.http;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +19,8 @@ import java.io.IOException;
 @EnableRedisRepositories
 public class RedisConfig {
 
+    private static final Logger logger = LoggerFactory.getLogger(RedisConfig.class);
+
     @Bean
     public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate<byte[], byte[]> template = new RedisTemplate<>();
@@ -26,7 +30,7 @@ public class RedisConfig {
 
     @Bean
     public RedisConnectionFactory connectionFactory(EmbeddedRedisServerBean redisServer) throws IOException {
-        System.out.println("Embedded Reids Server is loaded. : " + redisServer);
+        logger.debug("Embedded Reids Server is loaded. : " + redisServer);
         return new JedisConnectionFactory();
     }
 
@@ -43,12 +47,14 @@ public class RedisConfig {
         public void afterPropertiesSet() throws Exception {
             redisServer = new RedisServer(Protocol.DEFAULT_PORT);
             redisServer.start();
+            logger.debug("Embedded Redis server has started.");
         }
 
         @Override
         public void destroy() throws Exception {
             if (redisServer != null) {
                 redisServer.stop();
+                logger.debug("Embedded Redis server has stopped.");
             }
         }
     }

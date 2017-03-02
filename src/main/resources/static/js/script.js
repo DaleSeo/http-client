@@ -15,6 +15,7 @@ $.fn.serializeObject = function() {
 };
 
 const BASE_URL = 'http://dale-http.herokuapp.com';
+// const BASE_URL = 'http://localhost:8080';
 
 $.ajaxSetup({
   contentType: "application/json; charset=UTF-8",

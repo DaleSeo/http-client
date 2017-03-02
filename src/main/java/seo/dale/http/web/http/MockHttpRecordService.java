@@ -1,5 +1,7 @@
 package seo.dale.http.web.http;
 
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
