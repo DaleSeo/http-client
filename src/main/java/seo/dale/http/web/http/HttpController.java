@@ -15,7 +15,7 @@ public class HttpController {
 	private HttpService service;
 
 	@Autowired
-	private HttpHistoryService historyService;
+	private HttpRecordService historyService;
 
 	@RequestMapping(value = "/send", method = RequestMethod.POST)
 	public @ResponseBody HttpResponse send(@RequestBody HttpRequest req) {

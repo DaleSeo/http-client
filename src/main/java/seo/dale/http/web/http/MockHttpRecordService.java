@@ -1,13 +1,11 @@
 package seo.dale.http.web.http;
 
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Service
-public class MockHttpHistoryService implements HttpHistoryService {
+// @Service
+public class MockHttpRecordService implements HttpRecordService {
 
     private List<HttpRecord> records;
     private static AtomicLong counter = new AtomicLong();
@@ -25,7 +23,7 @@ public class MockHttpHistoryService implements HttpHistoryService {
         records.add(record);
     }
 
-    public MockHttpHistoryService() {
+    public MockHttpRecordService() {
         records = new ArrayList<>();
 
         addRecord(HttpRequest.Method.GET, "http://jsonplaceholder.typicode.com/posts", "");

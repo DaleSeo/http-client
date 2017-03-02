@@ -2,7 +2,7 @@ package seo.dale.http.web.http;
 
 import java.util.List;
 
-public interface HttpHistoryService {
+public interface HttpRecordService {
 
     List<HttpRecord> findAll();
 
