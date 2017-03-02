@@ -22,7 +22,7 @@ public class HttpService {
 	public HttpResponse send(HttpRequest req) {
 		HttpClientMethod method = HttpClientMethod.valueOf(req.getMethod().name());
 		HttpClientUrl url = HttpClientUrl.custom()
-				.path(req.getUrl().getPath())
+				.path(req.getUrl())
 				.build();
 		HttpClientRequest request = new HttpClientRequest(req.getHeaders(), req.getBody());
 

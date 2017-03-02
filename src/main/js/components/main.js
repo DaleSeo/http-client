@@ -11,7 +11,8 @@ class Main extends React.Component {
     this.state = {
       req: {
         method: 'GET',
-        path: 'http://jsonplaceholder.typicode.com/posts',
+        scheme: 'HTTP',
+        url: 'http://jsonplaceholder.typicode.com/posts',
         body: '{}'
       },
       res: {
@@ -28,19 +29,15 @@ class Main extends React.Component {
 
   handleSend() {
     console.log('handleSend()');
-    let req = {url: {}};
-    req.method = this.state.req.method;
-    req.url.path = this.state.req.path;
-    req.body = this.state.req.body;
 
-    $.post('/http/send', JSON.stringify(req))
+    $.post('/http/send', JSON.stringify(this.state.req))
       .done(res => {
         this.setState({res: res});
 
-        let record = {req: req};
+        let record = {request: this.state.req};
         $.post('/http/records', JSON.stringify(record))
           .done(res => {
-            updateRecords();
+            this.updateRecords();
           });
       });
   }
@@ -61,7 +58,7 @@ class Main extends React.Component {
             return {
               id: record.id,
               method: record.request.method,
-              url: record.request.url.scheme + '://' + record.request.url.host + record.request.url.path,
+              url: record.request.url,
               body: record.request.body
             };
           })
@@ -82,7 +79,7 @@ class Main extends React.Component {
           <div class="col-md-8">
             <Request
               method={this.state.req.method}
-              path={this.state.req.path}
+              url={this.state.req.url}
               body={this.state.req.body}
               onSend={this.handleSend.bind(this)}
               onChange={this.updateRequest.bind(this)}

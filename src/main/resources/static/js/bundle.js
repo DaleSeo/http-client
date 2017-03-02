@@ -21543,7 +21543,8 @@
 	    _this.state = {
 	      req: {
 	        method: 'GET',
-	        path: 'http://jsonplaceholder.typicode.com/posts',
+	        scheme: 'HTTP',
+	        url: 'http://jsonplaceholder.typicode.com/posts',
 	        body: '{}'
 	      },
 	      res: {
@@ -21566,17 +21567,13 @@
 	      var _this2 = this;
 	
 	      console.log('handleSend()');
-	      var req = { url: {} };
-	      req.method = this.state.req.method;
-	      req.url.path = this.state.req.path;
-	      req.body = this.state.req.body;
 	
-	      $.post('/http/send', JSON.stringify(req)).done(function (res) {
+	      $.post('/http/send', JSON.stringify(this.state.req)).done(function (res) {
 	        _this2.setState({ res: res });
 	
-	        var record = { req: req };
+	        var record = { request: _this2.state.req };
 	        $.post('/http/records', JSON.stringify(record)).done(function (res) {
-	          updateRecords();
+	          _this2.updateRecords();
 	        });
 	      });
 	    }
@@ -21600,7 +21597,7 @@
 	            return {
 	              id: record.id,
 	              method: record.request.method,
-	              url: record.request.url.scheme + '://' + record.request.url.host + record.request.url.path,
+	              url: record.request.url,
 	              body: record.request.body
 	            };
 	          })
@@ -21640,7 +21637,7 @@
 	            { className: 'col-md-8' },
 	            _react2.default.createElement(_request2.default, {
 	              method: this.state.req.method,
-	              path: this.state.req.path,
+	              url: this.state.req.url,
 	              body: this.state.req.body,
 	              onSend: this.handleSend.bind(this),
 	              onChange: this.updateRequest.bind(this)
@@ -21696,10 +21693,10 @@
 	
 	  _createClass(History, [{
 	    key: 'updateRequest',
-	    value: function updateRequest(method, path, body) {
+	    value: function updateRequest(method, url, body) {
 	      this.props.updateRequest({
 	        method: method,
-	        path: path,
+	        url: url,
 	        body: body
 	      });
 	    }
@@ -21849,24 +21846,37 @@
 	  }
 	
 	  _createClass(Request, [{
+	    key: "setProp",
+	    value: function setProp(name, event) {
+	      var req = {};
+	      req[name] = event.target.value;
+	      this.props.onChange(req);
+	    }
+	  }, {
 	    key: "setMethod",
 	    value: function setMethod(event) {
 	      this.props.onChange({
-	        method: event.target.value
+	        method: event.target.value,
+	        url: this.props.url,
+	        body: this.props.body
 	      });
 	    }
 	  }, {
-	    key: "setPath",
-	    value: function setPath(event) {
+	    key: "setUrl",
+	    value: function setUrl(event) {
 	      this.props.onChange({
-	        path: event.target.value
+	        method: this.props.method,
+	        url: event.target.value,
+	        body: this.props.body
 	      });
 	    }
 	  }, {
 	    key: "setBody",
 	    value: function setBody(event) {
 	      this.props.onChange({
-	        method: event.target.value
+	        method: this.props.method,
+	        url: this.props.url,
+	        body: event.target.value
 	      });
 	    }
 	  }, {
@@ -21926,10 +21936,10 @@
 	            { className: "form-group" },
 	            _react2.default.createElement(
 	              "label",
-	              { htmlFor: "path" },
-	              "Path"
+	              { htmlFor: "url" },
+	              "URL"
 	            ),
-	            _react2.default.createElement("input", { id: "path", name: "path", type: "text", className: "form-control", value: this.props.path, onChange: this.setPath.bind(this) })
+	            _react2.default.createElement("input", { id: "url", name: "url", type: "text", className: "form-control", value: this.props.url, onChange: this.setUrl.bind(this) })
 	          ),
 	          _react2.default.createElement(
 	            "div",

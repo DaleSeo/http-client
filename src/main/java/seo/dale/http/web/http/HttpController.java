@@ -22,11 +22,6 @@ public class HttpController {
 		return service.send(req);
 	}
 
-    // @RequestMapping(value = "/records", method = RequestMethod.OPTIONS)
-    public @ResponseBody List<HttpRecord> options() {
-        return historyService.findAll();
-	}
-
 	@RequestMapping(value = "/records", method = RequestMethod.GET)
 	public @ResponseBody List<HttpRecord> findAll() {
 		return historyService.findAll();

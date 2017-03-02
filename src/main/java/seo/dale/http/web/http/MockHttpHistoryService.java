@@ -12,31 +12,26 @@ public class MockHttpHistoryService implements HttpHistoryService {
     private List<HttpRecord> records;
     private static AtomicLong counter = new AtomicLong();
 
-    private void addRecord(HttpRequest.Method method, String host, String path, String body) {
-        HttpRequest.Url url0 = new HttpRequest.Url();
-        url0.setScheme(HttpRequest.Scheme.HTTP);
-        url0.setHost(host);
-        url0.setPath(path);
+    private void addRecord(HttpRequest.Method method, String url, String body) {
+        HttpRequest request = new HttpRequest();
+        request.setMethod(method);
+        request.setUrl(url);
+        request.setBody(body);
 
-        HttpRequest request0 = new HttpRequest();
-        request0.setMethod(method);
-        request0.setUrl(url0);
-        request0.setBody(body);
+        HttpRecord record = new HttpRecord();
+        record.setId(counter.incrementAndGet());
+        record.setRequest(request);
 
-        HttpRecord record0 = new HttpRecord();
-        record0.setId(counter.incrementAndGet());
-        record0.setRequest(request0);
-
-        records.add(record0);
+        records.add(record);
     }
 
     public MockHttpHistoryService() {
         records = new ArrayList<>();
 
-        addRecord(HttpRequest.Method.GET, "jsonplaceholder.typicode.com", "/posts", "");
-        addRecord(HttpRequest.Method.POST, "jsonplaceholder.typicode.com", "/posts", "{\"userId\": 1, \"id\": 101, \"title\": \"foo\", \"body\": \"bar\"}");
-        addRecord(HttpRequest.Method.PUT, "jsonplaceholder.typicode.com", "/posts/1", "{\"userId\": 1, \"id\": 101, \"title\": \"foo\", \"body\": \"bar\"}");
-        addRecord(HttpRequest.Method.DELETE, "jsonplaceholder.typicode.com", "/posts/1", "");
+        addRecord(HttpRequest.Method.GET, "http://jsonplaceholder.typicode.com/posts", "");
+        addRecord(HttpRequest.Method.POST, "http://jsonplaceholder.typicode.com/posts", "{\"userId\": 1, \"id\": 101, \"title\": \"foo\", \"body\": \"bar\"}");
+        addRecord(HttpRequest.Method.PUT, "http://jsonplaceholder.typicode.com/posts/1", "{\"userId\": 1, \"id\": 101, \"title\": \"foo\", \"body\": \"bar\"}");
+        addRecord(HttpRequest.Method.DELETE, "http://jsonplaceholder.typicode.com/posts/1", "");
     }
 
     @Override
@@ -46,6 +41,7 @@ public class MockHttpHistoryService implements HttpHistoryService {
 
     @Override
     public void add(HttpRecord record) {
+        record.setId(counter.incrementAndGet());
         records.add(record);
     }
 }

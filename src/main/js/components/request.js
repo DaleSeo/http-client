@@ -2,21 +2,33 @@ import React from 'react';
 
 class Request extends React.Component {
 
+  setProp(name, event) {
+    let req = {};
+    req[name] = event.target.value
+    this.props.onChange(req);
+  }
+
   setMethod(event) {
     this.props.onChange({
-      method: event.target.value
+      method: event.target.value,
+      url: this.props.url,
+      body: this.props.body
     });
   }
 
-  setPath(event) {
+  setUrl(event) {
     this.props.onChange({
-      path: event.target.value
+      method: this.props.method,
+      url: event.target.value,
+      body: this.props.body
     });
   }
 
   setBody(event) {
-    this.props.onChange({
-      method: event.target.value
+      this.props.onChange({
+        method: this.props.method,
+        url: this.props.url,
+        body: event.target.value,
     });
   }
 
@@ -39,8 +51,8 @@ class Request extends React.Component {
             </select>
           </div>
           <div class="form-group">
-            <label for="path">Path</label>
-            <input id="path" name="path" type="text" class="form-control" value={this.props.path} onChange={this.setPath.bind(this)} />
+            <label for="url">URL</label>
+            <input id="url" name="url" type="text" class="form-control" value={this.props.url} onChange={this.setUrl.bind(this)} />
           </div>
           <div class="form-group">
             <label for="body">Body</label>

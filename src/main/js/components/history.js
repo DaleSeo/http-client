@@ -4,10 +4,10 @@ import Record from './record'
 
 class History extends React.Component {
 
-  updateRequest(method, path, body) {
+  updateRequest(method, url, body) {
     this.props.updateRequest({
       method: method,
-      path: path,
+      url: url,
       body: body
     });
   }
