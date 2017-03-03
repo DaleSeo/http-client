@@ -37,7 +37,6 @@ public class RedisConfig {
         URI redisURI = new URI(System.getenv("REDIS_URL"));
         logger.debug("Use Heroku Redis Server. ({})", redisURI);
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
-        jedisConnectionFactory.setUsePool(true);
         jedisConnectionFactory.setHostName(redisURI.getHost());
         jedisConnectionFactory.setPort(redisURI.getPort());
         jedisConnectionFactory.setTimeout(Protocol.DEFAULT_TIMEOUT);
