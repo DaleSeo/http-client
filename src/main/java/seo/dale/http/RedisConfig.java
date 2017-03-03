@@ -35,7 +35,7 @@ public class RedisConfig {
     @Profile("production")
     public RedisConnectionFactory connectionFactoryForProduction() throws IOException, URISyntaxException {
         URI redisURI = new URI(System.getenv("REDIS_URL"));
-        logger.debug("Use Heroku Reids Server. ({})", redisURI);
+        logger.debug("Use Heroku Redis Server. ({})", redisURI);
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
         jedisConnectionFactory.setHostName(redisURI.getHost());
         jedisConnectionFactory.setPort(redisURI.getPort());
@@ -45,7 +45,7 @@ public class RedisConfig {
     @Bean
     @Profile("!production")
     public RedisConnectionFactory connectionFactory(EmbeddedRedisServerBean redisServer) throws IOException {
-        logger.debug("Use Embedded Reids Server." + redisServer);
+        logger.debug("Use Embedded Redis Server." + redisServer);
         return new JedisConnectionFactory();
     }
 
