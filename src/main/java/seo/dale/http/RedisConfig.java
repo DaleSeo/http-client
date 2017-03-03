@@ -33,23 +33,11 @@ public class RedisConfig {
         return template;
     }
 
-//    @Bean
-//    @Profile("production")
-//    public RedisConnectionFactory connectionFactoryForProduction() throws IOException, URISyntaxException {
-//        URI redisURI = new URI(System.getenv("REDIS_URL"));
-//        logger.debug("Use Heroku Redis Server. ({})", redisURI);
-//        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
-//        jedisConnectionFactory.setHostName(redisURI.getHost());
-//        jedisConnectionFactory.setPort(redisURI.getPort());
-//        jedisConnectionFactory.setTimeout(Protocol.DEFAULT_TIMEOUT);
-//        jedisConnectionFactory.setPassword(JedisURIHelper.getPassword(redisURI));
-//        return jedisConnectionFactory;
-//    }
-
     @Bean
     @Profile("production")
     public JedisConnectionFactory jedisConnectionFactory() throws URISyntaxException {
         URI redisUri = new URI(System.getenv("REDIS_URL"));
+        logger.debug("Use Heroku Redis Server. ({})", redisUri);
         return new JedisConnectionFactory(new JedisShardInfo(redisUri));
     }
 
