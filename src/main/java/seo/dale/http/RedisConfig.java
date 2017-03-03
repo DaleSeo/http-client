@@ -11,6 +11,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
+import redis.clients.jedis.JedisShardInfo;
 import redis.clients.util.JedisURIHelper;
 import redis.embedded.RedisServer;
 import redis.clients.jedis.Protocol;
@@ -32,20 +33,24 @@ public class RedisConfig {
         return template;
     }
 
+//    @Bean
+//    @Profile("production")
+//    public RedisConnectionFactory connectionFactoryForProduction() throws IOException, URISyntaxException {
+//        URI redisURI = new URI(System.getenv("REDIS_URL"));
+//        logger.debug("Use Heroku Redis Server. ({})", redisURI);
+//        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
+//        jedisConnectionFactory.setHostName(redisURI.getHost());
+//        jedisConnectionFactory.setPort(redisURI.getPort());
+//        jedisConnectionFactory.setTimeout(Protocol.DEFAULT_TIMEOUT);
+//        jedisConnectionFactory.setPassword(JedisURIHelper.getPassword(redisURI));
+//        return jedisConnectionFactory;
+//    }
+
     @Bean
     @Profile("production")
-    public RedisConnectionFactory connectionFactoryForProduction() throws IOException, URISyntaxException {
-        URI redisURI = new URI(System.getenv("REDIS_URL"));
-        logger.debug("Use Heroku Redis Server. ({})", redisURI);
-        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
-        jedisConnectionFactory.setHostName(redisURI.getHost());
-        jedisConnectionFactory.setPort(redisURI.getPort());
-        jedisConnectionFactory.setTimeout(Protocol.DEFAULT_TIMEOUT);
-//        logger.debug("Redis Database: " + JedisURIHelper.getDBIndex(redisURI));
-//        jedisConnectionFactory.setDatabase(JedisURIHelper.getDBIndex(redisURI));
-        logger.debug("Redis Password: " + JedisURIHelper.getPassword(redisURI));
-        jedisConnectionFactory.setPassword(JedisURIHelper.getPassword(redisURI));
-        return jedisConnectionFactory;
+    public JedisConnectionFactory jedisConnectionFactory() throws URISyntaxException {
+        URI redisUri = new URI(System.getenv("REDIS_URL"));
+        return new JedisConnectionFactory(new JedisShardInfo(redisUri));
     }
 
     @Bean
