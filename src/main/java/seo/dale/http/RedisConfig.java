@@ -38,15 +38,14 @@ public class RedisConfig {
         URI redisURI = new URI(System.getenv("REDIS_URL"));
         logger.debug("Use Heroku Redis Server. ({})", redisURI);
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
-        jedisConnectionFactory.setUsePool(false);
         jedisConnectionFactory.setHostName(redisURI.getHost());
         jedisConnectionFactory.setPort(redisURI.getPort());
         jedisConnectionFactory.setTimeout(Protocol.DEFAULT_TIMEOUT);
-        logger.debug("Redis Database: " + JedisURIHelper.getDBIndex(redisURI));
-        jedisConnectionFactory.setDatabase(JedisURIHelper.getDBIndex(redisURI));
+//        logger.debug("Redis Database: " + JedisURIHelper.getDBIndex(redisURI));
+//        jedisConnectionFactory.setDatabase(JedisURIHelper.getDBIndex(redisURI));
         logger.debug("Redis Password: " + JedisURIHelper.getPassword(redisURI));
         jedisConnectionFactory.setPassword(JedisURIHelper.getPassword(redisURI));
-        return new JedisConnectionFactory();
+        return jedisConnectionFactory;
     }
 
     @Bean
