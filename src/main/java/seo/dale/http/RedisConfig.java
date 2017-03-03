@@ -6,6 +6,7 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -14,6 +15,8 @@ import redis.embedded.RedisServer;
 import redis.clients.jedis.Protocol;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 @Configuration
 @EnableRedisRepositories
@@ -29,12 +32,25 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedisConnectionFactory connectionFactory(EmbeddedRedisServerBean redisServer) throws IOException {
-        logger.debug("Embedded Reids Server is loaded. : " + redisServer);
+    @Profile("production")
+    public RedisConnectionFactory connectionFactoryForProduction() throws IOException, URISyntaxException {
+        URI redisURI = new URI(System.getenv("REDIS_URL"));
+        logger.debug("Use Heroku Reids Server. ({})", redisURI);
+        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
+        jedisConnectionFactory.setHostName(redisURI.getHost());
+        jedisConnectionFactory.setPort(redisURI.getPort());
         return new JedisConnectionFactory();
     }
 
     @Bean
+    @Profile("!production")
+    public RedisConnectionFactory connectionFactory(EmbeddedRedisServerBean redisServer) throws IOException {
+        logger.debug("Use Embedded Reids Server." + redisServer);
+        return new JedisConnectionFactory();
+    }
+
+    @Bean
+    @Profile("!production")
     public EmbeddedRedisServerBean redisServer() {
         return new EmbeddedRedisServerBean();
     }
