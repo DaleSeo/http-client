@@ -11,6 +11,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
+import redis.clients.util.JedisURIHelper;
 import redis.embedded.RedisServer;
 import redis.clients.jedis.Protocol;
 
@@ -40,8 +41,10 @@ public class RedisConfig {
         jedisConnectionFactory.setHostName(redisURI.getHost());
         jedisConnectionFactory.setPort(redisURI.getPort());
         jedisConnectionFactory.setTimeout(Protocol.DEFAULT_TIMEOUT);
-        logger.debug("Redis Password: " + redisURI.getUserInfo().split(":", 2)[1]);
-        jedisConnectionFactory.setPassword(redisURI.getUserInfo().split(":", 2)[1]);
+        logger.debug("Redis Database: " + JedisURIHelper.getDBIndex(redisURI));
+        jedisConnectionFactory.setDatabase(JedisURIHelper.getDBIndex(redisURI));
+        logger.debug("Redis Password: " + JedisURIHelper.getPassword(redisURI));
+        jedisConnectionFactory.setPassword(JedisURIHelper.getPassword(redisURI));
         return new JedisConnectionFactory();
     }
 
